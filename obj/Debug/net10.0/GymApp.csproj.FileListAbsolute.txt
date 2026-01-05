@@ -95,3 +95,4 @@ C:\Users\pavel\GymApp\obj\Debug\net10.0\refint\GymApp.dll
 C:\Users\pavel\GymApp\obj\Debug\net10.0\GymApp.pdb
 C:\Users\pavel\GymApp\obj\Debug\net10.0\GymApp.genruntimeconfig.cache
 C:\Users\pavel\GymApp\obj\Debug\net10.0\ref\GymApp.dll
+C:\Users\pavel\GymApp\obj\Debug\net10.0\GymApp.sourcelink.json
