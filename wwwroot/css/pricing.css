@@ -1,0 +1,29 @@
+.pricing-card {
+    border: 1px solid rgba(255,255,255,.08);
+    transition: .25s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-6px);
+}
+
+.pricing-card.featured {
+    background: #0d6efd;
+    color: #fff;
+    position: relative;
+}
+
+.pricing-card.featured ul li i {
+    color: #fff !important;
+}
+
+.badge-offer {
+    position: absolute;
+    top: 14px;
+    right: -10px;
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 0 12px 12px 0;
+}

@@ -1,0 +1,40 @@
+.hero-images {
+    min-height: 340px;
+}
+
+.hero-images .hero-img {
+    position: absolute;
+    width: 55%;
+    object-fit: cover;
+}
+
+.hero-images .img-1 {
+    top: 0;
+    left: 0;
+}
+
+.hero-images .img-2 {
+    top: 30px;
+    right: 0;
+}
+
+.hero-images .img-3 {
+    bottom: 0;
+    left: 25%;
+}
+
+
+@media (max-width: 768px) {
+
+    .hero-images {
+        min-height: 260px;
+    }
+
+    .hero-images .hero-img {
+        width: 70%;
+    }
+
+    .hero-images .img-3 {
+        left: 15%;
+    }
+}

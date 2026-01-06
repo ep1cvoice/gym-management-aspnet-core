@@ -21,7 +21,6 @@ C:\Users\pavel\GymApp\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
 C:\Users\pavel\GymApp\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\pavel\GymApp\obj\Debug\net10.0\scopedcss\bundle\GymApp.styles.css
 C:\Users\pavel\GymApp\obj\Debug\net10.0\scopedcss\projectbundle\GymApp.bundle.scp.css
-C:\Users\pavel\GymApp\obj\Debug\net10.0\compressed\yylmfmxctw-{0}-b9sayid5wm-b9sayid5wm.gz
 C:\Users\pavel\GymApp\obj\Debug\net10.0\compressed\5cl0h78ymq-{0}-61n19gt1b8-61n19gt1b8.gz
 C:\Users\pavel\GymApp\obj\Debug\net10.0\compressed\opvmd9i3ul-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 C:\Users\pavel\GymApp\obj\Debug\net10.0\compressed\3eaaztsjx8-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -96,3 +95,4 @@ C:\Users\pavel\GymApp\obj\Debug\net10.0\GymApp.pdb
 C:\Users\pavel\GymApp\obj\Debug\net10.0\GymApp.genruntimeconfig.cache
 C:\Users\pavel\GymApp\obj\Debug\net10.0\ref\GymApp.dll
 C:\Users\pavel\GymApp\obj\Debug\net10.0\GymApp.sourcelink.json
+C:\Users\pavel\GymApp\obj\Debug\net10.0\compressed\yylmfmxctw-{0}-spm7jec939-spm7jec939.gz
