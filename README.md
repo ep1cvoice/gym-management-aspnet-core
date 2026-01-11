@@ -1,24 +1,29 @@
 # Gym Management System
 
-*Full-stack web application built with ASP.NET Core MVC and Bootstrap.*
+_Full-stack web application built with ASP.NET Core MVC and Bootstrap._
 
-> ⚠️ Status: Project in planning & development phase.
+> 🎨 **Design inspiration:** Project’s UI is inspired by a Figma Community design by **Moch. Rizki Eko Waluyo**  
+> https://www.figma.com/community/file/1268413829309445731  
+> All visual credit goes to the original creator.
+
+> ⚠️ **Status:** Project in planning & development phase.
 > Features listed below are planned and will be added gradually.
 
-*The project simulates a real gym management platform:*
+_The project simulates a real gym management platform:_
+
 - user registration and login
 - browsing classes and trainers
 - booking training sessions
 - managing memberships (passes)
 - dmin panel for managing content
 
-*Built as a learning + portfolio project.*
+_Built as a learning + portfolio project._
 
 ## Tech stack
 
 - ASP.NET Core MVC
 - Entity Framework Core
-- MS SQL 
+- MS SQL
 - Bootstrap 5
 - Razor Views
 - Dependency Injection
@@ -26,26 +31,30 @@
 
 ## Main features (MVP)
 
-*User*
+_User_
+
 - Create an account & log in
 - View available classes
 - Book classes
 - See active membership
 
-*Admin*
+_Admin_
+
 - Manage users
 - Manage trainers
 - Manage gym classes
-- Manage memberships 
+- Manage memberships
 - View bookings
 
-*Trainer (planned)*
+_Trainer (planned)_
+
 - Manage own classes
 - View attendees
 - Mark attendance
 - Update class info
 
 ## Roadmap
+
 - Bootstrap created responsive UI
 - Authentication & roles
 - Classes booking
@@ -57,8 +66,8 @@
 
 ## Why this project?
 
-*I built this project to:*
+_I built this project to:_
+
 - learn ASP.NET Core full-stack development
 - understand clean architecture and patterns
 - build a real-world app for portfolio
-
