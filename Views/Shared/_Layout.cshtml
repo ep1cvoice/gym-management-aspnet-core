@@ -23,11 +23,11 @@
 
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent shadow-sm py-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black shadow-lg py-3 fixed-top">
             <div class="container">
 
-                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" asp-controller="Home"
-                    asp-action="Index">
+                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" asp-controller="Home" asp-action="Index"
+                    asp-fragment="home">
 
                     <svg width="36" height="36" viewBox="0 0 285 285" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
@@ -66,19 +66,22 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="home">Home</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Program">Program</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index"
+                                asp-fragment="program">Program</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Pricing">Pricing</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index"
+                                asp-fragment="pricing">Pricing</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Community">Community</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index"
+                                asp-fragment="testimonial">Community</a>
                         </li>
 
                         <li class="nav-item ms-3 d-none d-lg-block">
@@ -129,7 +132,7 @@
 
                 <div class="col-md-6 mb-4">
                     <a class="navbar-brand fw-bold d-flex align-items-center gap-2" asp-controller="Home"
-                        asp-action="Index">
+                        asp-action="Index" asp-fragment="home">
 
                         <svg width="36" height="36" viewBox="0 0 285 285" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
@@ -199,7 +202,7 @@
 
             <div class="d-flex justify-content-between small text-secondary">
 
-                <span>© 2026 PrimeFit Gym</span>
+                <span>© 2026 UrbanFit Gym</span>
 
                 <div class="d-flex gap-3">
                     <a href="#" class="text-secondary text-decoration-none">Terms of Use</a>
@@ -220,5 +223,14 @@
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["Success"]
+    </div>
+}
+
+
 
 </html>
