@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<section class="min-vh-100 bg-black text-light pt-5">
+    <div class="container pt-5">
+        <h2 class="fw-bold">Your Profile</h2>
+        <p class="text-secondary">
+            Logged in as <strong>@User.Identity?.Name</strong>
+        </p>
+    </div>
+</section>

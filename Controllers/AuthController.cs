@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using GymApp.Models;
+using GymApp.Models.ViewModels;
 
 namespace GymApp.Controllers
 {
@@ -7,13 +9,16 @@ namespace GymApp.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly AppDbContext _db;
 
         public AuthController(
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            AppDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _db = db;
         }
 
         // ---------------- REGISTER ----------------
@@ -25,30 +30,31 @@ namespace GymApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string email, string password)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            if (!ModelState.IsValid)
+                return View(model);
+
             var user = new IdentityUser
             {
-                UserName = email,
-                Email = email
+                UserName = model.Email,
+                Email = model.Email
             };
 
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
-                TempData["Success"] = "Welcome to Gym Manager!";
-                return RedirectToAction("Index", "Home");
+                TempData["Success"] = "Account created successfully. Please log in.";
+                return RedirectToAction("Login", "Auth");
             }
 
             foreach (var error in result.Errors)
-            {
                 ModelState.AddModelError("", error.Description);
-            }
 
-            return View();
+            return View(model);
         }
+
 
         // ---------------- LOGIN ----------------
 
@@ -59,10 +65,16 @@ namespace GymApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
+            if (!ModelState.IsValid)
+                return View(model);
+
             var result = await _signInManager.PasswordSignInAsync(
-                email, password, false, false);
+                model.Email,
+                model.Password,
+                isPersistent: false,
+                lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
@@ -71,15 +83,20 @@ namespace GymApp.Controllers
             }
 
             ModelState.AddModelError("", "Invalid email or password");
-            return View();
+            return View(model);
         }
+
 
         // ---------------- LOGOUT ----------------
 
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
+
     }
 }

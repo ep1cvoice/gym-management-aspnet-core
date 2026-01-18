@@ -1,54 +1,50 @@
+@model GymApp.Models.ViewModels.LoginViewModel
+
 @{
     ViewData["Title"] = "Login";
 }
-
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger">
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-        {
-            <div>@error.ErrorMessage</div>
-        }
-    </div>
-}
-
-@if (TempData["Success"] != null)
-{
-    <div class="container mt-3">
-        <div class="alert alert-success alert-dismissible fade show">
-            @TempData["Success"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    </div>
-}
-
 
 <section class="bg-black min-vh-100 d-flex align-items-center">
     <div class="container">
         <div class="row align-items-center">
 
             <div class="col-lg-6 d-none d-lg-block">
-                <img src="/img/hero-img/hero-img-large.jpg" class="img-fluid rounded-4 shadow-lg" />
+                <img src="/img/hero-img/hero-img-large.jpg"
+                     class="img-fluid rounded-4 shadow-lg" />
             </div>
 
             <div class="col-lg-5 offset-lg-1 text-light">
                 <div class="bg-dark p-5 rounded-4 shadow">
 
                     <h2 class="fw-bold mb-2">Welcome Back</h2>
-                    <p class="text-secondary mb-4">Login to continue your fitness journey</p>
+                    <p class="text-secondary mb-4">
+                        Login to continue your fitness journey
+                    </p>
 
-                    <form asp-action="Login" asp-controller="Auth" method="post">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <div>@error.ErrorMessage</div>
+                            }
+                        </div>
+                    }
+
+                    <form asp-action="Login" asp-controller="Auth" method="post" novalidate>
 
                         <div class="mb-3">
-                            <label class="form-label text-secondary">Email</label>
-                            <input type="email" name="email"
-                                class="form-control form-control-lg bg-black text-light border-0">
+                            <label asp-for="Email" class="form-label text-secondary"></label>
+                            <input asp-for="Email"
+                                   class="form-control form-control-lg bg-light text-dark border-0" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label text-secondary">Password</label>
-                            <input type="password" name="password"
-                                class="form-control form-control-lg bg-black text-light border-0">
+                            <label asp-for="Password" class="form-label text-secondary"></label>
+                            <input asp-for="Password"
+                                   class="form-control form-control-lg bg-light text-dark border-0" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
 
                         <button class="btn btn-primary w-100 py-2">
@@ -57,7 +53,8 @@
 
                         <p class="text-secondary text-center mt-4">
                             Don’t have an account?
-                            <a asp-action="Register" class="text-primary text-decoration-none">
+                            <a asp-action="Register"
+                               class="text-primary text-decoration-none">
                                 Register
                             </a>
                         </p>
@@ -69,3 +66,7 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

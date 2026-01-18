@@ -63,58 +63,101 @@
 
                 <div class="collapse navbar-collapse" id="mainNav">
 
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="home">Home</a>
-                        </li>
+        <!-- LINKS -->
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="home">Home</a>
+        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index"
-                                asp-fragment="program">Program</a>
-                        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="program">Program</a>
+        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index"
-                                asp-fragment="pricing">Pricing</a>
-                        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="pricing">Pricing</a>
+        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index"
-                                asp-fragment="testimonial">Community</a>
-                        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="testimonial">Community</a>
+        </li>
 
-                        <li class="nav-item ms-3 d-none d-lg-block">
-                            <a class="btn btn-outline-light me-2" asp-controller="Auth" asp-action="Login">
-                                Login
-                            </a>
-                        </li>
+        <!-- ================= DESKTOP BUTTONS ================= -->
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
+                <a class="btn btn-outline-light me-2"
+                   asp-controller="Profile" asp-action="Index">
+                    Profile
+                </a>
 
-                        <li class="nav-item d-none d-lg-block">
-                            <a class="btn btn-primary" asp-controller="Auth" asp-action="Register">
-                                Register
-                            </a>
-                        </li>
+                <form asp-controller="Auth" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
+                <a class="btn btn-outline-light me-2"
+                   asp-controller="Auth" asp-action="Login">
+                    Login
+                </a>
 
+                <a class="btn btn-primary"
+                   asp-controller="Auth" asp-action="Register">
+                    Register
+                </a>
+            </li>
+        }
 
-                        <div class="d-lg-none w-100 mt-3">
-                            <div class="row g-2">
-                                <div class="col-6">
-                                    <a class="btn btn-outline-light w-100" asp-controller="Auth" asp-action="Login">
-                                        Login
-                                    </a>
-                                </div>
+        <!-- ================= MOBILE BUTTONS ================= -->
+        <li class="nav-item d-lg-none w-100 mt-4">
+            <div class="row g-2">
 
-                                <div class="col-6">
-                                    <a class="btn btn-primary w-100" asp-controller="Auth" asp-action="Register">
-                                        Register
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <div class="col-6">
+                        <a class="btn btn-outline-light w-100"
+                           asp-controller="Profile" asp-action="Index">
+                            Profile
+                        </a>
+                    </div>
 
-                    </ul>
-                </div>
+                    <div class="col-6">
+                        <form asp-controller="Auth" asp-action="Logout" method="post">
+                            <button type="submit" class="btn btn-danger w-100">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-6">
+                        <a class="btn btn-outline-light w-100"
+                           asp-controller="Auth" asp-action="Login">
+                            Login
+                        </a>
+                    </div>
+
+                    <div class="col-6">
+                        <a class="btn btn-primary w-100"
+                           asp-controller="Auth" asp-action="Register">
+                            Register
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </li>
+
+    </ul>
+
+</div>
+
             </div>
         </nav>
     </header>
