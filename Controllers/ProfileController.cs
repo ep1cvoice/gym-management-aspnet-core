@@ -6,13 +6,14 @@ namespace GymApp.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        public IActionResult Index(string section = "account", bool edit = false)
+        public IActionResult Index(string section = "account", string? editSection = null)
         {
             ViewBag.Section = section;
-            ViewBag.EditMode = edit;
+            ViewBag.EditSection = editSection; 
 
             return View();
         }
+
 
 
     }

@@ -86,13 +86,13 @@
         @if (User.Identity?.IsAuthenticated == true)
         {
             <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
-                <a class="btn btn-outline-light me-2"
+                <a class="btn text-light bg-primary me-2"
                    asp-controller="Profile" asp-action="Index">
                     Profile
                 </a>
 
                 <form asp-controller="Auth" asp-action="Logout" method="post">
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit" class="btn btn-outline-light">
                         Logout
                     </button>
                 </form>
@@ -120,7 +120,7 @@
                 @if (User.Identity?.IsAuthenticated == true)
                 {
                     <div class="col-6">
-                        <a class="btn btn-outline-light w-100"
+                        <a class="btn text-light bg-primary w-100"
                            asp-controller="Profile" asp-action="Index">
                             Profile
                         </a>
@@ -128,7 +128,7 @@
 
                     <div class="col-6">
                         <form asp-controller="Auth" asp-action="Logout" method="post">
-                            <button type="submit" class="btn btn-danger w-100">
+                            <button type="submit" class="btn btn-outline-light w-100">
                                 Logout
                             </button>
                         </form>

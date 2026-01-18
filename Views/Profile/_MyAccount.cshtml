@@ -1,77 +1,11 @@
 @{
-    bool editMode = ViewBag.EditMode == true;
+    string? editSection = ViewBag.EditSection as string;
 }
 
 <!-- ================= CONTENT ================= -->
 
 
-@if (!editMode)
-{
-    <h1 class="fw-bold mb-4">Moje konto</h1>
-
-    <!-- ===== MOJE DANE ===== -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-body bg-dark text-light border border-dark rounded">
-
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold mb-0">Moje dane</h5>
-
-                <div>
-                    <a class="btn btn-outline-light btn-sm me-2"
-                       asp-controller="Profile"
-                       asp-action="Index"
-                       asp-route-section="account"
-                       asp-route-edit="false">
-                        zmień hasło
-                    </a>
-
-                    <a class="btn btn-primary btn-sm"
-                       asp-controller="Profile"
-                       asp-action="Index"
-                       asp-route-section="account"
-                       asp-route-edit="true">
-                        edytuj
-                    </a>
-                </div>
-            </div>
-
-            <hr />
-
-            <p><strong>Imię i nazwisko:</strong> Pavlo Kovalchuk</p>
-            <p><strong>Email:</strong> pavelkovalchuk0510@gmail.com</p>
-            <p><strong>Telefon:</strong> +48 576 893 299</p>
-            <p><strong>Dokument:</strong> RR9107755</p>
-
-        </div>
-    </div>
-
-    <!-- ===== ADRES ===== -->
-    <div class="card shadow-sm">
-        <div class="card-body bg-dark text-light border border-dark rounded">
-
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold mb-0">Adres kontaktowy</h5>
-
-                <a class="btn btn-primary btn-sm"
-                   asp-controller="Profile"
-                   asp-action="Index"
-                   asp-route-section="account"
-                   asp-route-edit="true">
-                    edytuj
-                </a>
-            </div>
-
-            <hr />
-
-            <p><strong>Imię i nazwisko:</strong> Pavlo Kovalchuk</p>
-            <p><strong>Ulica:</strong> Toszecka 27A/8</p>
-            <p><strong>Kod pocztowy / Miasto:</strong> 44-102 Gliwice</p>
-
-        </div>
-    </div>
-}
-
-@if (editMode)
+@if (editSection == "profile")
 {
     <h1 class="fw-bold mb-4">Edytuj moje dane</h1>
 
@@ -81,8 +15,12 @@
             <div class="card-body bg-dark text-light border border-dark rounded">
 
                 <div class="mb-3">
-                    <label class="form-label">Imię i nazwisko</label>
-                    <input class="form-control" value="Pavlo Kovalchuk" />
+                    <label class="form-label">Imię</label>
+                    <input class="form-control" value="Pavlo" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nazwisko</label>
+                    <input class="form-control" value="Kovalchuk" />
                 </div>
 
                 <div class="mb-3">
@@ -95,10 +33,6 @@
                     <input class="form-control" value="+48 576 893 299" />
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Dokument</label>
-                    <input class="form-control" value="RR9107755" />
-                </div>
 
                 <div class="d-flex justify-content-end gap-2">
                     <a class="btn btn-outline-light"
@@ -118,3 +52,172 @@
 
     </form>
 }
+
+@if (editSection == "address")
+{
+    <h1 class="fw-bold mb-4">Edytuj adres</h1>
+
+    <form>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body bg-dark text-light border border-dark rounded">
+
+                <div class="mb-3">
+                    <label class="form-label">Ulica</label>
+                    <input class="form-control" value="Toszecka 27A/8" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Kod pocztowy</label>
+                    <input class="form-control" value="44-102" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Miasto</label>
+                    <input class="form-control" value="Gliwice" />
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <a class="btn btn-outline-light"
+                       asp-controller="Profile"
+                       asp-action="Index"
+                       asp-route-section="account">
+                        Anuluj
+                    </a>
+
+                    <button class="btn btn-primary" disabled>
+                        Zapisz (wkrótce)
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+}
+
+
+@if (editSection == null)
+{
+
+
+    <h1 class="fw-bold mb-4">Moje konto</h1>
+
+    <!-- ===== MOJE DANE ===== -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body bg-dark text-light border border-dark rounded">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Moje dane</h5>
+
+                <div>
+                    <a class="btn btn-outline-light btn-sm me-2"
+                       asp-controller="Profile"
+                       asp-action="Index"
+                       asp-route-section="account"
+                       asp-route-editSection="password">
+                        zmień hasło
+                    </a>
+
+                    <a class="btn btn-primary btn-sm"
+                       asp-controller="Profile"
+                       asp-action="Index"
+                       asp-route-section="account"
+                       asp-route-editSection="profile">
+                        edytuj
+                    </a>
+                </div>
+            </div>
+
+            <hr />
+
+            <p><strong>Imię:</strong> Pavlo</p>
+            <p><strong>Nazwisko:</strong> ovalchuk</p>
+            <p><strong>Email:</strong> pavelkovalchuk0510@gmail.com</p>
+            <p><strong>Telefon:</strong> +48 576 893 299</p>
+
+        </div>
+    </div>
+
+    <!-- ===== ADRES ===== -->
+    <div class="card shadow-sm">
+        <div class="card-body bg-dark text-light border border-dark rounded">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0">Adres kontaktowy</h5>
+
+                <a class="btn btn-primary btn-sm"
+                   asp-controller="Profile"
+                    asp-action="Index"
+                    asp-route-section="account"
+                    asp-route-editSection="address">
+                    edytuj
+                </a>
+            </div>
+
+            <hr />
+
+            <p><strong>Ulica:</strong> Toszecka</p>
+            <p><strong>Nr. domu i mieszkania:</strong> 27A/8</p>
+            <p><strong>Kod pocztowy:</strong> 44-102</p>
+            <p><strong>Miasto:</strong> Gliwice</p>
+
+        </div>
+    </div>
+}
+
+@if (editSection == "password")
+{
+    <h1 class="fw-bold mb-4">Zmień hasło</h1>
+
+    <form>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body bg-dark text-light border border-dark rounded">
+
+                <!-- STARE HASŁO -->
+                <div class="mb-3">
+                    <label class="form-label">Aktualne hasło</label>
+                    <input type="password"
+                           class="form-control"
+                           placeholder="Wpisz aktualne hasło" />
+                </div>
+
+                <!-- NOWE HASŁO -->
+                <div class="mb-3">
+                    <label class="form-label">Nowe hasło</label>
+                    <input type="password"
+                           class="form-control"
+                           placeholder="Wpisz nowe hasło" />
+                    <div class="form-text text-secondary">
+                        Min. 8 znaków, 1 wielka litera, 1 cyfra
+                    </div>
+                </div>
+
+                <!-- POWTÓRZ HASŁO -->
+                <div class="mb-3">
+                    <label class="form-label">Powtórz nowe hasło</label>
+                    <input type="password"
+                           class="form-control"
+                           placeholder="Powtórz nowe hasło" />
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a class="btn btn-outline-light"
+                       asp-controller="Profile"
+                       asp-action="Index"
+                       asp-route-section="account">
+                        Anuluj
+                    </a>
+
+                    <button type="button"
+                            class="btn btn-primary"
+                            disabled>
+                        Zmień hasło
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+}
+
