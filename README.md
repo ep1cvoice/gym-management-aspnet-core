@@ -71,3 +71,14 @@ _I built this project to:_
 - learn ASP.NET Core full-stack development
 - understand clean architecture and patterns
 - build a real-world app for portfolio
+
+
+*18.01.2026*
+
+- Introduced custom ApplicationUser and updated Identity configuration
+- Implemented profile view with sidebar navigation and section switching
+- Added EditProfileViewModel and profile data editing (name, email, phone, document)
+- Synced email change with Identity login (UserName)
+- Added password change UI with separate ChangePasswordViewModel and partial view
+- Refactored profile views into clean partial-based structure
+- Fixed Identity DI configuration and cookie-related issues
