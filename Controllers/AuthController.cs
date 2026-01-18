@@ -3,23 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using GymApp.Models;
 using GymApp.Models.ViewModels;
 
+
 namespace GymApp.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly AppDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public AuthController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            AppDbContext db)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _db = db;
         }
+
 
         // ---------------- REGISTER ----------------
 
@@ -35,10 +34,12 @@ namespace GymApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 UserName = model.Email,
-                Email = model.Email
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -46,7 +47,7 @@ namespace GymApp.Controllers
             if (result.Succeeded)
             {
                 TempData["Success"] = "Account created successfully. Please log in.";
-                return RedirectToAction("Login", "Auth");
+                return RedirectToAction("Login");
             }
 
             foreach (var error in result.Errors)
@@ -56,14 +57,16 @@ namespace GymApp.Controllers
         }
 
 
-        // ---------------- LOGIN ----------------
 
+
+        // -------- LOGIN GET --------
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        // -------- LOGIN POST --------
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -87,6 +90,7 @@ namespace GymApp.Controllers
         }
 
 
+
         // ---------------- LOGOUT ----------------
 
         [HttpPost]
@@ -95,8 +99,5 @@ namespace GymApp.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
-
-
     }
 }

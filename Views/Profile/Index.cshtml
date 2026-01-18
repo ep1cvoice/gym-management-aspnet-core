@@ -1,3 +1,6 @@
+@model GymApp.Models.ViewModels.EditProfileViewModel
+
+
 @{
     ViewData["Title"] = "Moje konto";
 }
@@ -44,7 +47,8 @@
             </li>
 
             <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="account" class="nav-link text-white fw-bold">
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="account"
+                    class="nav-link text-white fw-bold">
                     <i class="bi bi-person me-2 fs-3 fs-md-5"></i>
                     <span class="d-none d-md-inline ms-2">Moje Konto</span>
                 </a>
@@ -66,7 +70,7 @@
                     break;
 
                 default:
-                    @await Html.PartialAsync("_MyAccount")
+                    @await Html.PartialAsync("_MyAccount", Model)
                     break;
             }
 

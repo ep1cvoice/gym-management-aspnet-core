@@ -9,8 +9,7 @@
         <div class="row align-items-center">
 
             <div class="col-lg-6 d-none d-lg-block">
-                <img src="/img/hero-img/hero-img-large.jpg"
-                     class="img-fluid rounded-4 shadow-lg" />
+                <img src="/img/hero-img/hero-img-large.jpg" class="img-fluid rounded-4 shadow-lg" />
             </div>
 
             <div class="col-lg-5 offset-lg-1 text-light">
@@ -33,22 +32,36 @@
 
                         <div class="mb-3">
                             <label asp-for="Email" class="form-label text-secondary"></label>
-                            <input asp-for="Email"
-                                   class="form-control form-control-lg bg-light text-dark border-0" />
+                            <input asp-for="Email" class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3">
+                            <label asp-for="FirstName" class="form-label text-secondary"></label>
+                            <input asp-for="FirstName"
+                                class="form-control form-control-lg bg-light text-dark border-0" />
+                            <span asp-validation-for="FirstName" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="LastName" class="form-label text-secondary"></label>
+                            <input asp-for="LastName"
+                                class="form-control form-control-lg bg-light text-dark border-0" />
+                            <span asp-validation-for="LastName" class="text-danger small"></span>
+                        </div>
+
+
+                        <div class="mb-3">
                             <label asp-for="Password" class="form-label text-secondary"></label>
                             <input asp-for="Password"
-                                   class="form-control form-control-lg bg-light text-dark border-0" />
+                                class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-4">
                             <label asp-for="ConfirmPassword" class="form-label text-secondary">Confirm Password</label>
                             <input asp-for="ConfirmPassword"
-                                   class="form-control form-control-lg bg-light text-dark border-0" />
+                                class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                         </div>
 
