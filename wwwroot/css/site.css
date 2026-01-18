@@ -13,7 +13,9 @@ html {
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
-	box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+	box-shadow:
+		0 0 0 0.1rem white,
+		0 0 0 0.25rem #258cfb;
 }
 
 html {
@@ -39,4 +41,18 @@ body {
 
 section {
 	scroll-margin-top: 90px;
+}
+
+.profile-sidebar .nav-link {
+	padding: 12px 20px;
+	font-size: 0.95rem;
+}
+
+.profile-sidebar .nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.profile-sidebar .nav-link.active {
+    background-color: #ffffff;
+    color: #000 !important;
 }
