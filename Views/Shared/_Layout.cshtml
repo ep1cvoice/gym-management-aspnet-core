@@ -63,105 +63,113 @@
 
                 <div class="collapse navbar-collapse" id="mainNav">
 
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="home">Home</a>
-        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="home">Home</a>
+                        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="program">Program</a>
-        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index"
+                                asp-fragment="program">Program</a>
+                        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="trainers">Trainers</a>
-        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index"
+                                asp-fragment="trainers">Trainers</a>
+                        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="pricing">Pricing</a>
-        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index"
+                                asp-fragment="pricing">Pricing</a>
+                        </li>
 
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="testimonial">Community</a>
-        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index"
+                                asp-fragment="testimonial">Community</a>
+                        </li>
 
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
-                <a class="btn text-light bg-primary me-2"
-                   asp-controller="Profile" asp-action="Index">
-                    Profile
-                </a>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
+                                <a class="btn text-light bg-primary me-2" asp-controller="Profile" asp-action="Index">
+                                    Profile
+                                </a>
 
-                <form asp-controller="Auth" asp-action="Logout" method="post">
-                    <button type="submit" class="btn btn-outline-light">
-                        Logout
-                    </button>
-                </form>
-            </li>
-        }
-        else
-        {
-            <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
-                <a class="btn btn-outline-light me-2"
-                   asp-controller="Auth" asp-action="Login">
-                    Login
-                </a>
+                                <form asp-controller="Auth" asp-action="Logout" method="post">
+                                    <button type="submit" class="btn btn-outline-light">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
+                                <a class="btn btn-outline-light me-2" asp-controller="Auth" asp-action="Login">
+                                    Login
+                                </a>
 
-                <a class="btn btn-primary"
-                   asp-controller="Auth" asp-action="Register">
-                    Register
-                </a>
-            </li>
-        }
+                                <a class="btn btn-primary" asp-controller="Auth" asp-action="Register">
+                                    Register
+                                </a>
+                            </li>
+                        }
 
-        <li class="nav-item d-lg-none w-100 mt-4">
-            <div class="row g-2">
+                        <li class="nav-item d-lg-none w-100 mt-4">
+                            <div class="row g-2">
 
-                @if (User.Identity?.IsAuthenticated == true)
-                {
-                    <div class="col-6">
-                        <a class="btn text-light bg-primary w-100"
-                           asp-controller="Profile" asp-action="Index">
-                            Profile
-                        </a>
-                    </div>
+                                @if (User.Identity?.IsAuthenticated == true)
+                                {
+                                    <div class="col-6">
+                                        <a class="btn text-light bg-primary w-100" asp-controller="Profile"
+                                            asp-action="Index">
+                                            Profile
+                                        </a>
+                                    </div>
 
-                    <div class="col-6">
-                        <form asp-controller="Auth" asp-action="Logout" method="post">
-                            <button type="submit" class="btn btn-outline-light w-100">
-                                Logout
-                            </button>
-                        </form>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-6">
-                        <a class="btn btn-outline-light w-100"
-                           asp-controller="Auth" asp-action="Login">
-                            Login
-                        </a>
-                    </div>
+                                    <div class="col-6">
+                                        <form asp-controller="Auth" asp-action="Logout" method="post">
+                                            <button type="submit" class="btn btn-outline-light w-100">
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-6">
+                                        <a class="btn btn-outline-light w-100" asp-controller="Auth" asp-action="Login">
+                                            Login
+                                        </a>
+                                    </div>
 
-                    <div class="col-6">
-                        <a class="btn btn-primary w-100"
-                           asp-controller="Auth" asp-action="Register">
-                            Register
-                        </a>
-                    </div>
-                }
+                                    <div class="col-6">
+                                        <a class="btn btn-primary w-100" asp-controller="Auth" asp-action="Register">
+                                            Register
+                                        </a>
+                                    </div>
+                                }
 
-            </div>
-        </li>
+                            </div>
+                        </li>
 
-    </ul>
+                    </ul>
 
-</div>
+                </div>
 
             </div>
         </nav>
     </header>
+
+    <div class="alert-container">
+        @if (TempData["Success"] != null)
+        {
+            <div id="successAlert" class="alert alert-success text-center rounded-0 mb-0 fade show">
+                @TempData["Success"]
+            </div>
+        }
+    </div>
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -267,13 +275,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
-
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success text-center">
-        @TempData["Success"]
-    </div>
-}
 
 
 

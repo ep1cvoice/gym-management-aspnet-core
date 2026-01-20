@@ -658,6 +658,20 @@
                 clickable: true
             }
         });
+        document.addEventListener("DOMContentLoaded", function () {
+            const alert = document.getElementById("successAlert");
+
+            if (alert) {
+                setTimeout(() => {
+                    alert.classList.add("fade");
+                    alert.classList.remove("show");
+
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 500);
+                }, 5000);
+            }
+        });
     </script>
 
 }

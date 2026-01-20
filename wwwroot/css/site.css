@@ -1,5 +1,7 @@
 html {
 	font-size: 14px;
+    position: relative;
+	min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -18,14 +20,13 @@ html {
 		0 0 0 0.25rem #258cfb;
 }
 
-html {
-	position: relative;
-	min-height: 100%;
-}
-
 body {
 	margin-bottom: 60px;
 	background-color: #000;
+}
+
+.alert-container {
+    margin-top: 90px;
 }
 
 .form-floating > .form-control-plaintext::placeholder,
