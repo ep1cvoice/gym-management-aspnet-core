@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using GymApp.Models;
 using GymApp.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using GymApp.Models.Enums;
+using GymApp.Models.Factories;
+
 
 namespace GymApp.Controllers
 {
@@ -11,9 +15,13 @@ namespace GymApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProfileController(UserManager<ApplicationUser> userManager)
+        public ProfileController(UserManager<ApplicationUser> userManager,
+            AppDbContext context,
+            IPassFactory passFactory)
         {
             _userManager = userManager;
+            _context = context;
+            _passFactory = passFactory;
         }
 
         public async Task<IActionResult> Index(
@@ -122,6 +130,68 @@ namespace GymApp.Controllers
             ViewBag.EditSection = "password";
             return View("Index", new EditProfileViewModel());
         }
+
+        private readonly AppDbContext _context;
+        private readonly IPassFactory _passFactory;
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BuyPass(PassType passType)
+        {
+            var user = await _userManager.Users
+                .Include(u => u.ActivePass)
+                .FirstOrDefaultAsync(u => u.Id == _userManager.GetUserId(User));
+
+            if (user == null)
+                return RedirectToAction("Login", "Auth");
+
+            // BLOKADA – tylko jeden karnet
+            if (user.ActivePass != null)
+            {
+                TempData["Error"] = "Masz już aktywny karnet. Usuń go, aby kupić nowy.";
+                return RedirectToAction("Index", new { section = "passes" });
+            }
+
+            // SIMPLE FACTORY
+            var pass = _passFactory.Create(passType, user.Id);
+
+            user.ActivePass = pass;
+
+            _context.UserPasses.Add(pass);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Płatność zakończona sukcesem. Karnet został aktywowany.";
+
+            return RedirectToAction("Index", new { section = "passes" });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemovePass()
+        {
+            var user = await _userManager.Users
+                .Include(u => u.ActivePass)
+                .FirstOrDefaultAsync(u => u.Id == _userManager.GetUserId(User));
+
+            if (user == null)
+                return RedirectToAction("Login", "Auth");
+
+            if (user.ActivePass == null)
+            {
+                TempData["Error"] = "Nie masz aktywnego karnetu.";
+                return RedirectToAction("Index", new { section = "passes" });
+            }
+
+            _context.UserPasses.Remove(user.ActivePass);
+            user.ActivePass = null;
+
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Karnet został usunięty.";
+
+            return RedirectToAction("Index", new { section = "passes" });
+        }
+
 
     }
 
