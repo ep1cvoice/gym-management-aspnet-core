@@ -52,10 +52,6 @@ section {
     background-color: rgba(255,255,255,0.1);
 }
 
-.profile-sidebar .nav-link.active {
-    background-color: #ffffff;
-    color: #000 !important;
-}
 
 .trainer-card {
     position: relative;

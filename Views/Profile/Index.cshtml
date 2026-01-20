@@ -5,6 +5,12 @@
     ViewData["Title"] = "Moje konto";
 }
 
+@{
+    string section = ViewData["Section"] as string ?? "account";
+}
+
+
+
 <div class="container-fluid mt-5 pt-5">
     <div class="row">
 
@@ -12,35 +18,41 @@
         <ul class="nav flex-column profile-sidebar col-2 col-md-3 col-lg-3 col-lg-2 pt-5">
 
             <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="passes" class="nav-link text-white">
-                    <i class="bi bi-credit-card me-2 fs-3 fs-md-5"></i>
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="passes"
+                    class="nav-link rounded text-white d-flex align-items-center @(section == "passes" ? "bg-primary fw-bold rounded" : "")">
+                    <i class="bi bi-credit-card me-2 fs-3"></i>
                     <span class="d-none d-md-inline ms-2">Karnety</span>
                 </a>
             </li>
 
+
             <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="classes" class="nav-link text-white">
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="classes" 
+                class="nav-link rounded text-white d-flex align-items-center @(section == "classes" ? "bg-primary fw-bold rounded" : "")">
                     <i class="bi bi-people me-2 fs-3 fs-md-5"></i>
                     <span class="d-none d-md-inline ms-2">Zajęcia grupowe</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="personal" class="nav-link text-white">
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="personal" 
+                class="nav-link rounded text-white d-flex align-items-center @(section == "personal" ? "bg-primary fw-bold rounded" : "")">
                     <i class="bi bi-heart-pulse me-2 fs-3 fs-md-5"></i>
                     <span class="d-none d-md-inline ms-2">Treningi Personalne</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="diets" class="nav-link text-white">
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="diets" 
+                class="nav-link rounded text-white d-flex align-items-center @(section == "diets" ? "bg-primary fw-bold rounded" : "")">
                     <i class="bi bi-egg-fried me-2 fs-3 fs-md-5"></i>
                     <span class="d-none d-md-inline ms-2 ">Diety</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="plans" class="nav-link text-white">
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="plans" 
+                class="nav-link rounded text-white d-flex align-items-center @(section == "plans" ? "bg-primary fw-bold rounded" : "")">
                     <i class="bi bi-journal-text me-2 fs-3 fs-md-5"></i>
                     <span class="d-none d-md-inline ms-2">Plany treningowe</span>
                 </a>
@@ -48,11 +60,13 @@
 
             <li class="nav-item">
                 <a asp-controller="Profile" asp-action="Index" asp-route-section="account"
-                    class="nav-link text-white fw-bold">
-                    <i class="bi bi-person me-2 fs-3 fs-md-5"></i>
+                    class="nav-link rounded text-white d-flex align-items-center @(section == "account" ? "bg-primary fw-bold rounded" : "")">
+                    <i class="bi bi-credit-card me-2 fs-3"></i>
                     <span class="d-none d-md-inline ms-2">Moje Konto</span>
                 </a>
             </li>
+
+
 
         </ul>
 
