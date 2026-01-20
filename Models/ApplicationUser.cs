@@ -16,7 +16,10 @@ namespace GymApp.Models
         [MaxLength(50)]
         public string? DocumentNumber { get; set; }
 
-        // NAVIGATION
         public ICollection<UserAddress> Addresses { get; set; } = new List<UserAddress>();
+
+        public UserPass? ActivePass { get; set; }
     }
+
+    
 }

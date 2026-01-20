@@ -11,4 +11,7 @@ public class AppDbContext
     }
 
     public DbSet<UserAddress> UserAddresses => Set<UserAddress>();
+
+    public DbSet<UserPass> UserPasses => Set<UserPass>();
+
 }
