@@ -19,20 +19,20 @@
 
 <div class="container">
 
-    @* ===== KOMUNIKATY ===== *@
-    @if (TempData["Success"] != null)
+    @if (TempData["PassSuccess"] != null)
     {
-        <div class="alert alert-success">
-            @TempData["Success"]
+        <div id="successAlert" class="alert alert-success">
+            @TempData["PassSuccess"]
         </div>
     }
 
-    @if (TempData["Error"] != null)
+    @if (TempData["PassError"] != null)
     {
-        <div class="alert alert-danger">
-            @TempData["Error"]
+        <div id="pass-error-alert" class="alert alert-danger">
+            @TempData["PassError"]
         </div>
     }
+
 
     @* ===== BRAK KARNETU ===== *@
     @if (activePass == null)
@@ -43,16 +43,35 @@
 
             <!-- STUDENT -->
             <div class="col-12 col-md-6 col-lg-3 mb-4">
-                <div class="pricing-card bg-dark rounded-4 p-4 h-100">
-                    <h6 class="text-primary">Student Package</h6>
-                    <h2 class="fw-bold mb-1">$45</h2>
-                    <p class="text-secondary small mb-4">per month</p>
+                <div class="pricing-card bg-dark rounded-4 p-4 h-100 d-flex flex-column">
+                    <h6 class="text-primary">Student</h6>
+                    <h2 class="fw-bold mb-1">45zł</h2>
+                    <p class="text-secondary small mb-4">miesięczny</p>
 
-                    <form asp-action="BuyPass" method="post">
+                    <ul class="list-unstyled mb-4 small">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            2x Wejścia na tydzień
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Trening max 60min
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Wejścia do 11:00 i po 21:00
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Bez dostępu do sauny i basenu
+                        </li>
+                    </ul>
+
+                    <form asp-action="BuyPass" method="post" class="mt-auto">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="passType" value="@PassType.Student" />
                         <button type="submit" class="btn bg-primary w-100">
-                            Subscribe Now
+                            Kup teraz
                         </button>
                     </form>
                 </div>
@@ -60,17 +79,37 @@
 
             <!-- BASIC -->
             <div class="col-12 col-md-6 col-lg-3 mb-4">
-                <div class="pricing-card featured rounded-4 p-4 h-100">
-                    <div class="badge-offer">Most Popular</div>
+                <div class="pricing-card featured rounded-4 p-4 h-100 d-flex flex-column">
+                    <div class="badge-offer">Najpopularniejszy</div>
 
-                    <h6 class="text-light">Basic Package</h6>
-                    <h2 class="fw-bold mb-1">$65</h2>
+                    <h6 class="text-light">Basic</h6>
+                    <h2 class="fw-bold mb-1">65zł</h2>
+                    <p class="text-light small mb-4">miesięczny</p>
 
-                    <form asp-action="BuyPass" method="post">
+                    <ul class="list-unstyled mb-4 small">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-light me-2"></i>
+                            3x wejścia na tydzień
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-light me-2"></i>
+                            Trening max 90min
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-light me-2"></i>
+                            Całodniowy dostęp
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-light me-2"></i>
+                            Dostęp do sauny i basenu za dopłatą
+                        </li>
+                    </ul>
+
+                    <form asp-action="BuyPass" method="post" class="mt-auto">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="passType" value="@PassType.Basic" />
                         <button type="submit" class="btn bg-light text-dark w-100">
-                            Subscribe Now
+                            Kup teraz
                         </button>
                     </form>
                 </div>
@@ -78,15 +117,35 @@
 
             <!-- PRO -->
             <div class="col-12 col-md-6 col-lg-3 mb-4">
-                <div class="pricing-card bg-dark rounded-4 p-4 h-100">
-                    <h6 class="text-primary">Pro Package</h6>
-                    <h2 class="fw-bold mb-1">$89</h2>
+                <div class="pricing-card bg-dark rounded-4 p-4 h-100 d-flex flex-column">
+                    <h6 class="text-primary">Pro</h6>
+                    <h2 class="fw-bold mb-1">89zł</h2>
+                    <p class="text-secondary small mb-4">miesięczny</p>
 
-                    <form asp-action="BuyPass" method="post">
+                    <ul class="list-unstyled mb-4 small">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Wejścia bez ograniczeń
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Czas treningu bez ograniczeń
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Dostęp 24/7
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Dostęp do sauny i basenu 2x na tydzień bez dopłat
+                        </li>
+                    </ul>
+
+                    <form asp-action="BuyPass" method="post" class="mt-auto">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="passType" value="@PassType.Pro" />
                         <button type="submit" class="btn bg-primary w-100">
-                            Subscribe Now
+                            Kup teraz
                         </button>
                     </form>
                 </div>
@@ -94,17 +153,66 @@
 
             <!-- ATHLETE -->
             <div class="col-12 col-md-6 col-lg-3 mb-4">
-                <div class="pricing-card bg-dark rounded-4 p-4 h-100">
-                    <h6 class="text-primary">Athlete Package</h6>
-                    <h2 class="fw-bold mb-1">$119</h2>
+                <div class="pricing-card bg-dark rounded-4 p-4 h-100 d-flex flex-column">
+                    <h6 class="text-primary">Athlete</h6>
+                    <h2 class="fw-bold mb-1">119zł</h2>
+                    <p class="text-secondary small mb-4">miesięczny</p>
 
-                    <form asp-action="BuyPass" method="post">
+                    <ul class="list-unstyled mb-4 small">
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Wejścia bez ograniczeń
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Czas treningu bez ograniczeń
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Dostęp 24/7
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                            Dostęp do sauny i basenu bez ograniczeń
+                        </li>
+                    </ul>
+
+                    <form asp-action="BuyPass" method="post" class="mt-auto">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="passType" value="@PassType.Athlete" />
                         <button type="submit" class="btn bg-primary w-100">
-                            Subscribe Now
+                            Kup teraz
                         </button>
                     </form>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-5">
+                <div class="col-12 col-lg-10">
+                    <div class="bg-dark rounded-4 p-3 px-md-4">
+                        <div class="d-flex flex-wrap justify-content-center align-items-center gap-4 text-secondary small">
+
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-light font-weight-bold">Zapłać przez: </span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-bank fs-4 text-primary"></i>
+                                <span>Przelew tradycyjny</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-phone fs-4 text-primary"></i>
+                                <span>Aplikacja bankowa</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-credit-card-2-front fs-4 text-primary"></i>
+                                <span>YouPay / Tpay</span>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -119,7 +227,7 @@
             <h4 class="text-primary">@activePass.Name</h4>
 
             <p class="mb-1">
-                <strong>Cena:</strong> $@activePass.Price
+                <strong>Cena:</strong> @activePass.Price zł
             </p>
 
             <p class="mb-3">
@@ -127,13 +235,42 @@
                 @activePass.EndDate.ToLocalTime().ToString("dd.MM.yyyy")
             </p>
 
-            <form asp-action="RemovePass" method="post">
-                @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-danger">
-                    Usuń karnet
-                </button>
-            </form>
+            <div class="d-flex justify-content-between gap-2">
+
+                <form asp-action="ExtendPass" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-success">
+                        Przedłuż o miesiąc
+                    </button>
+                </form>
+
+                <form asp-action="RemovePass" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">
+                        Zrezygnuj
+                    </button>
+                </form>
+
+            </div>
+
         </div>
     }
 
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const alert = document.getElementById("successAlert");
+
+        if (alert) {
+            setTimeout(() => {
+                alert.classList.add("fade");
+                alert.classList.remove("show");
+
+                setTimeout(() => {
+                    alert.remove();
+                }, 500);
+            }, 5000);
+        }
+    });
+</script>

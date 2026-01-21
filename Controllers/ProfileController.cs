@@ -160,7 +160,8 @@ namespace GymApp.Controllers
             _context.UserPasses.Add(pass);
             await _context.SaveChangesAsync();
 
-            TempData["Success"] = "Płatność zakończona sukcesem. Karnet został aktywowany.";
+            TempData["PassSuccess"] = "Płatność zakończona sukcesem. Karnet został aktywowany.";
+
 
             return RedirectToAction("Index", new { section = "passes" });
         }
@@ -187,10 +188,39 @@ namespace GymApp.Controllers
 
             await _context.SaveChangesAsync();
 
-            TempData["Success"] = "Karnet został usunięty.";
+            TempData["PassSuccess"] = "Karnet został usunięty.";
+
 
             return RedirectToAction("Index", new { section = "passes" });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ExtendPass()
+        {
+            var user = await _userManager.Users
+                .Include(u => u.ActivePass)
+                .FirstOrDefaultAsync(u => u.Id == _userManager.GetUserId(User));
+
+            if (user == null)
+                return RedirectToAction("Login", "Auth");
+
+            if (user.ActivePass == null)
+            {
+                TempData["Error"] = "Nie masz aktywnego karnetu do przedłużenia.";
+                return RedirectToAction("Index", new { section = "passes" });
+            }
+
+            user.ActivePass.EndDate = user.ActivePass.EndDate.AddDays(30);
+
+            await _context.SaveChangesAsync();
+
+            TempData["PassSuccess"] = "Karnet został przedłużony o kolejny miesiąc.";
+
+
+            return RedirectToAction("Index", new { section = "passes" });
+        }
+
 
 
     }
