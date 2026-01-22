@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="utf-8" />
@@ -66,7 +66,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="home">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="home">Start</a>
                         </li>
 
                         <li class="nav-item">
@@ -76,29 +76,29 @@
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index"
-                                asp-fragment="trainers">Trainers</a>
+                                asp-fragment="trainers">Trenerzy</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index"
-                                asp-fragment="pricing">Pricing</a>
+                                asp-fragment="pricing">Cennik</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index"
-                                asp-fragment="testimonial">Community</a>
+                                asp-fragment="testimonial">Społeczność</a>
                         </li>
 
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
                                 <a class="btn text-light bg-primary me-2" asp-controller="Profile" asp-action="Index">
-                                    Profile
+                                    Mój Profil
                                 </a>
 
                                 <form asp-controller="Auth" asp-action="Logout" method="post">
                                     <button type="submit" class="btn btn-outline-light">
-                                        Logout
+                                        Wyloguj
                                     </button>
                                 </form>
                             </li>
@@ -107,11 +107,11 @@
                         {
                             <li class="nav-item ms-3 d-none d-lg-flex align-items-center">
                                 <a class="btn btn-outline-light me-2" asp-controller="Auth" asp-action="Login">
-                                    Login
+                                    Zaloguj się
                                 </a>
 
                                 <a class="btn btn-primary" asp-controller="Auth" asp-action="Register">
-                                    Register
+                                    Rejestracja
                                 </a>
                             </li>
                         }
@@ -124,14 +124,14 @@
                                     <div class="col-6">
                                         <a class="btn text-light bg-primary w-100" asp-controller="Profile"
                                             asp-action="Index">
-                                            Profile
+                                            Mój Profil
                                         </a>
                                     </div>
 
                                     <div class="col-6">
                                         <form asp-controller="Auth" asp-action="Logout" method="post">
                                             <button type="submit" class="btn btn-outline-light w-100">
-                                                Logout
+                                                Wyloguj
                                             </button>
                                         </form>
                                     </div>
@@ -140,13 +140,13 @@
                                 {
                                     <div class="col-6">
                                         <a class="btn btn-outline-light w-100" asp-controller="Auth" asp-action="Login">
-                                            Login
+                                            Zaloguj się
                                         </a>
                                     </div>
 
                                     <div class="col-6">
                                         <a class="btn btn-primary w-100" asp-controller="Auth" asp-action="Register">
-                                            Register
+                                            Rejestracja
                                         </a>
                                     </div>
                                 }
@@ -182,7 +182,7 @@
 
             <div class="row px-8">
 
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6 col-lg-4 mb-4">
                     <a class="navbar-brand fw-bold d-flex align-items-center gap-2" asp-controller="Home"
                         asp-action="Index" asp-fragment="home">
 
@@ -214,32 +214,39 @@
                     </a>
 
 
-                    <p class="text-secondary small py-2">
-                        Train with purpose. Move with confidence. Live stronger — every day, in and out of the gym. At
-                        UrbanFit Gym, we help you build habits, strength, and motivation that last. Every workout is a
-                        step toward a healthier, more confident you.
+                    <p class="text-secondary small py-2 pr-3">
+                        Trenuj z celem. Ruszaj się z pewnością siebie. Żyj silniej — każdego dnia, na treningu i poza nim. W UrbanFit Gym pomagamy budować nawyki, siłę i motywację, które zostają z Tobą na długo. 
                     </p>
                 </div>
 
-                <div class="col-md-2 mb-4">
-                    <h6 class="fw-bold mb-3">Sitemap</h6>
+                <div class="col-6 col-md-2 mb-4">
+                    <h6 class="fw-bold mb-3">Mapa strony</h6>
                     <ul class="list-unstyled small">
-                        <li><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Promos</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">News & Blog</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Help Center</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">O nas</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Promocje</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Aktualności i blog</a></li>
+                       <li><a href="#" class="text-secondary text-decoration-none">Centrum pomocy</a></li>
                     </ul>
                 </div>
 
-                <div class="col-md-2 mb-4">
-                    <h6 class="fw-bold mb-3">Support</h6>
+                <div class="col-6 col-md-2 mb-4">
+                    <h6 class="fw-bold mb-3">Wsparcie</h6>
                     <ul class="list-unstyled small">
                         <li><a href="#" class="text-secondary text-decoration-none">FAQ</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Support Center</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Centrum wsparcia</a></li>
                     </ul>
                 </div>
 
-                <div class="col-md-2 mb-4">
+                <div class="col-6 col-md-2 mb-4">
+                    <h6 class="fw-bold mb-3">Adres</h6>
+                    <ul class="list-unstyled small">
+                        <li class="text-secondary text-decoration-none">ul. Przykładowa 29</li>
+                        <li class="text-secondary text-decoration-none">44-102, Gliwice</li>
+                        <li class="text-secondary text-decoration-none">woj. Śląskie</li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md-2 mb-4">
                     <h6 class="fw-bold mb-3">Social Media</h6>
                     <div class="d-flex gap-3">
                         <a href="#" class="text-secondary fs-4"><i class="bi bi-instagram"></i></a>
@@ -257,8 +264,8 @@
                 <span>© 2026 UrbanFit Gym</span>
 
                 <div class="d-flex gap-3">
-                    <a href="#" class="text-secondary text-decoration-none">Terms of Use</a>
-                    <a href="#" class="text-secondary text-decoration-none">Privacy Policy</a>
+                    <a href="#" class="text-secondary text-decoration-none">Regulamin</a>
+                    <a href="#" class="text-secondary text-decoration-none">Polityka prywatności</a>
                 </div>
             </div>
 
