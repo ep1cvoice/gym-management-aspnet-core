@@ -84,7 +84,7 @@ namespace GymApp.Controllers
 
             if (result.Succeeded)
             {
-                TempData["Success"] = "Profile updated successfully.";
+                TempData["Success"] = "Dane osobowe zostały zaktualizowane.";
                 return RedirectToAction("Index");
             }
 
