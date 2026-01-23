@@ -31,14 +31,45 @@ namespace GymApp.Controllers
         }
         public IActionResult ChooseTrainer()
         {
+            var targetUrl = Url.Action(
+                "Index",
+                "Profile",
+                new { section = "personal" }
+            );
+
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Login", "Auth",
-                    new { returnUrl = Url.Action("Index", "Profile") });
+                return RedirectToAction(
+                    "Login",
+                    "Auth",
+                    new { returnUrl = targetUrl }
+                );
             }
 
-            return RedirectToAction("Index", "Profile");
+            return Redirect(targetUrl!);
         }
+        public IActionResult ChooseMembership()
+        {
+            var targetUrl = Url.Action(
+                "Index",
+                "Profile",
+                new { section = "passes" }
+            );
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction(
+                    "Login",
+                    "Auth",
+                    new { returnUrl = targetUrl }
+                );
+            }
+
+            return Redirect(targetUrl!);
+        }
+
+
+
 
         // ---------------- REGISTER ----------------
 

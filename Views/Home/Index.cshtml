@@ -274,9 +274,10 @@
                         <h6 class="text-secondary pb-2">Instruktorka jogi</h6>
                         <div class="trainer-actions d-flex align-items-center">
 
-                            <a href="#" class="btn btn-primary">
+                            <a asp-controller="Auth" asp-action="ChooseTrainer" class="btn btn-primary">
                                 Zacznij trening
                             </a>
+
                         </div>
 
                     </div>
@@ -292,9 +293,10 @@
                         <h6 class="text-secondary pb-2">Trener CrossFitu</h6>
                         <div class="trainer-actions d-flex align-items-center">
 
-                            <a href="#" class="btn btn-primary">
+                            <a asp-controller="Auth" asp-action="ChooseTrainer" class="btn btn-primary">
                                 Zacznij trening
                             </a>
+
                         </div>
 
                     </div>
@@ -311,9 +313,10 @@
                         <h6 class="text-secondary pb-2">Trener podnoszenia ciężarów</h6>
                         <div class="trainer-actions d-flex align-items-center">
 
-                            <a href="#" class="btn btn-primary">
+                            <a asp-controller="Auth" asp-action="ChooseTrainer" class="btn btn-primary">
                                 Zacznij trening
                             </a>
+
                         </div>
 
                     </div>
@@ -329,9 +332,10 @@
                         <h6 class="text-secondary pb-2">Trener kulturystyki</h6>
                         <div class="trainer-actions d-flex align-items-center">
 
-                            <a href="#" class="btn btn-primary">
+                            <a asp-controller="Auth" asp-action="ChooseTrainer" class="btn btn-primary">
                                 Zacznij trening
                             </a>
+
                         </div>
 
                     </div>
@@ -352,7 +356,8 @@
             consectetur adipisicing elit.
         </h3>
 
-        <a class="btn btn-primary px-5 align-self-start align-self-center text-uppercase">
+        <a class="btn btn-primary px-5 align-self-start align-self-center text-uppercase" asp-controller="Auth"
+            asp-action="StartTraining">
             Dołącz
         </a>
 
@@ -401,7 +406,8 @@
                         </li>
                     </ul>
 
-                    <a class="btn btn-outline-none bg-primary w-100">
+                    <a class="btn btn-outline-none bg-primary w-100" asp-controller="Auth"
+                        asp-action="ChooseMembership">
                         Dołącz
                     </a>
 
@@ -437,7 +443,8 @@
                         </li>
                     </ul>
 
-                    <a class="btn btn-outline-none bg-light btn-primary w-100 text-dark">
+                    <a class="btn btn-outline-none bg-light btn-primary w-100 text-dark" asp-controller="Auth"
+                        asp-action="ChooseMembership">
                         Dołącz
                     </a>
 
@@ -471,7 +478,8 @@
                         </li>
                     </ul>
 
-                    <a class="btn btn-outline-none bg-primary w-100">
+                    <a class="btn btn-outline-none bg-primary w-100" asp-controller="Auth"
+                        asp-action="ChooseMembership">
                         Dołącz
                     </a>
 
@@ -505,7 +513,8 @@
                         </li>
                     </ul>
 
-                    <a class="btn btn-outline-none bg-primary w-100">
+                    <a class="btn btn-outline-none bg-primary w-100" asp-controller="Auth"
+                        asp-action="ChooseMembership">
                         Dołącz
                     </a>
 
@@ -609,7 +618,7 @@
     </div>
 </section>
 
-<section class="subscribe-section py-5">
+<section id="newsletter" class="subscribe-section py-5">
     <div class="container">
         <div class="bg-primary rounded p-5">
 
@@ -623,14 +632,28 @@
                     Zapisz się, aby otrzymywać informacje o promocjach, zniżkach i specjalnych wydarzeniach.
                 </p>
 
-                <form class="subscribe-form d-flex flex-column flex-sm-row gap-2 justify-content-center">
-                    <input type="email" class="form-control subscribe-input" placeholder="Wpisz swój adres email"
-                        required />
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div id="successAlert" class="alert alert-success alert-dismissible fade show text-center" role="alert">
 
-                    <button type="submit" class="btn btn-dark px-5 justify-content-center">
+                        @TempData["SuccessMessage"]
+
+                    </div>
+                }
+
+
+
+                <form asp-action="Subscribe" method="post"
+                    class="subscribe-form d-flex flex-column flex-sm-row gap-2 justify-content-center">
+
+                    <input type="email" name="email" class="form-control subscribe-input"
+                        placeholder="Wpisz swój adres email" required />
+
+                    <button type="submit" class="btn btn-dark px-5">
                         Zapisz się
                     </button>
                 </form>
+
 
             </div>
 
