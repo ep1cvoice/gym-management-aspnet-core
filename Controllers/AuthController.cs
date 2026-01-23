@@ -19,6 +19,26 @@ namespace GymApp.Controllers
             _signInManager = signInManager;
         }
 
+        public IActionResult StartTraining()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Auth",
+                    new { returnUrl = Url.Action("Index", "Profile") });
+            }
+
+            return RedirectToAction("Index", "Profile");
+        }
+        public IActionResult ChooseTrainer()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Auth",
+                    new { returnUrl = Url.Action("Index", "Profile") });
+            }
+
+            return RedirectToAction("Index", "Profile");
+        }
 
         // ---------------- REGISTER ----------------
 
@@ -46,7 +66,7 @@ namespace GymApp.Controllers
 
             if (result.Succeeded)
             {
-                TempData["Success"] = "Account created successfully. Please log in.";
+                TempData["Success"] = "Konto zostało pomyślnie utworzone. Teraz możesz się zalogowac.";
                 return RedirectToAction("Login");
             }
 
@@ -61,14 +81,15 @@ namespace GymApp.Controllers
 
         // -------- LOGIN GET --------
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string? returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         // -------- LOGIN POST --------
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -81,11 +102,17 @@ namespace GymApp.Controllers
 
             if (result.Succeeded)
             {
-                TempData["Success"] = "Welcome back!";
+                TempData["Success"] = "Zostałeś pomyślnie zalogowany!";
+
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
                 return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError("", "Invalid email or password");
+            ModelState.AddModelError("", "Wprowadzono błędne dane.");
             return View(model);
         }
 
@@ -97,6 +124,7 @@ namespace GymApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            TempData["Info"] = "Zostałeś poprawnie wylogowany.";
             return RedirectToAction("Index", "Home");
         }
     }

@@ -9,16 +9,15 @@
         <div class="row align-items-center">
 
             <div class="col-lg-6 d-none d-lg-block">
-                <img src="/img/hero-img/hero-img-large.jpg"
-                     class="img-fluid rounded-4 shadow-lg" />
+                <img src="/img/hero-img/hero-img-large.jpg" class="img-fluid rounded-4 shadow-lg" />
             </div>
 
             <div class="col-lg-5 offset-lg-1 text-light">
                 <div class="bg-dark p-5 rounded-4 shadow">
 
-                    <h2 class="fw-bold mb-2">Welcome Back</h2>
+                    <h2 class="fw-bold mb-2">Miło Cię znów widzieć</h2>
                     <p class="text-secondary mb-4">
-                        Login to continue your fitness journey
+                        Zaloguj się i kontynuuj swoją drogę do lepszej formy
                     </p>
 
                     @if (!ViewData.ModelState.IsValid)
@@ -33,32 +32,34 @@
 
                     <form asp-action="Login" asp-controller="Auth" method="post" novalidate>
 
+                        <!-- 🔑 KLUCZOWA LINIJKA -->
+                        <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
                         <div class="mb-3">
                             <label asp-for="Email" class="form-label text-secondary"></label>
-                            <input asp-for="Email"
-                                   class="form-control form-control-lg bg-light text-dark border-0" />
+                            <input asp-for="Email" class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-4">
-                            <label asp-for="Password" class="form-label text-secondary"></label>
+                            <label asp-for="Password" class="form-label text-secondary">Wpisz hasło</label>
                             <input asp-for="Password"
-                                   class="form-control form-control-lg bg-light text-dark border-0" />
+                                class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
 
-                        <button class="btn btn-primary w-100 py-2">
-                            Login
+                        <button class="btn btn-primary w-100 py-2 mt-4">
+                            Zaloguj się
                         </button>
 
                         <p class="text-secondary text-center mt-4">
-                            Don’t have an account?
-                            <a asp-action="Register"
-                               class="text-primary text-decoration-none">
-                                Register
+                            Nie masz jeszcze konta?
+                            <a asp-action="Register" class="text-primary text-decoration-none">
+                                Zarejestruj się
                             </a>
                         </p>
                     </form>
+
 
                 </div>
             </div>

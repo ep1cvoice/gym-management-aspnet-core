@@ -15,8 +15,8 @@
             <div class="col-lg-5 offset-lg-1 text-light">
                 <div class="bg-dark p-5 rounded-4 shadow">
 
-                    <h2 class="fw-bold mb-2">Create Account</h2>
-                    <p class="text-secondary mb-4">Start your transformation today</p>
+                    <h2 class="fw-bold mb-2">Utwórz konto</h2>
+                    <p class="text-secondary mb-4">Zacznij swoją transformację już dziś</p>
 
                     @if (!ViewData.ModelState.IsValid)
                     {
@@ -37,14 +37,14 @@
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="FirstName" class="form-label text-secondary"></label>
+                            <label asp-for="FirstName" class="form-label text-secondary">Imię</label>
                             <input asp-for="FirstName"
                                 class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="FirstName" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="LastName" class="form-label text-secondary"></label>
+                            <label asp-for="LastName" class="form-label text-secondary">Nazwisko</label>
                             <input asp-for="LastName"
                                 class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="LastName" class="text-danger small"></span>
@@ -52,27 +52,27 @@
 
 
                         <div class="mb-3">
-                            <label asp-for="Password" class="form-label text-secondary"></label>
+                            <label asp-for="Password" class="form-label text-secondary">Wpisz hasło</label>
                             <input asp-for="Password"
                                 class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="ConfirmPassword" class="form-label text-secondary">Confirm Password</label>
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label text-secondary">Powtórz hasło</label>
                             <input asp-for="ConfirmPassword"
                                 class="form-control form-control-lg bg-light text-dark border-0" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100 py-2">
-                            Create Account
+                        <button type="submit" class="btn btn-primary w-100 py-2 mt-4">
+                            Zarejestruj się
                         </button>
 
                         <p class="text-secondary text-center mt-4">
-                            Already have an account?
+                            Masz już konto?
                             <a asp-action="Login" class="text-primary text-decoration-none">
-                                Login
+                                Zaloguj się
                             </a>
                         </p>
                     </form>

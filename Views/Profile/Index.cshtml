@@ -77,6 +77,18 @@
                     @await Html.PartialAsync("_Passes")
                     break;
 
+                case "classes":
+                    @await Html.PartialAsync("_Classes")
+                    break;
+
+                case "personal":
+                    @await Html.PartialAsync("_PersonalTrainings")
+                    break;
+
+                case "plans":
+                    @await Html.PartialAsync("_TrainingPlans")
+                    break;
+
                 case "diets":
                     @await Html.PartialAsync("_Diets")
                     break;
@@ -89,8 +101,6 @@
                     @await Html.PartialAsync("_MyAccount", Model)
                     break;
             }
-
-
 
         </div>
 
