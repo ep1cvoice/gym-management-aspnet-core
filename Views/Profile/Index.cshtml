@@ -33,15 +33,6 @@
                 </a>
             </li>
 
-
-            <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="classes"
-                    class="nav-link rounded text-white d-flex align-items-center @(section == "classes" ? "bg-primary fw-bold rounded" : "")">
-                    <i class="bi bi-people me-2 fs-3 fs-md-5"></i>
-                    <span class="d-none d-md-inline ms-2">Zajęcia grupowe</span>
-                </a>
-            </li>
-
             <li class="nav-item">
                 <a asp-controller="Profile" asp-action="Index" asp-route-section="personal"
                     class="nav-link rounded text-white d-flex align-items-center @(section == "personal" ? "bg-primary fw-bold rounded" : "")">
@@ -51,21 +42,30 @@
             </li>
 
             <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="diets"
-                    class="nav-link rounded text-white d-flex align-items-center @(section == "diets" ? "bg-primary fw-bold rounded" : "")">
-                    <i class="bi bi-egg-fried me-2 fs-3 fs-md-5"></i>
-                    <span class="d-none d-md-inline ms-2 ">Diety</span>
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="classes"
+                    class="nav-link rounded text-white d-flex align-items-center @(section == "classes" ? "bg-primary fw-bold rounded" : "")">
+                    <i class="bi bi-people me-2 fs-3 fs-md-5"></i>
+                    <span class="d-none d-md-inline ms-2">Zajęcia grupowe</span>
+                </a>
+            </li>
+
+
+
+             <li class="nav-item">
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="reservarions"
+                    class="nav-link rounded text-white d-flex align-items-center @(section == "reservarions" ? "bg-primary fw-bold rounded" : "")">
+                    <i class="bi bi-journal-text me-2 fs-3 fs-md-5"></i>
+                    <span class="d-none d-md-inline ms-2">Moje rezerwacje</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="plans"
-                    class="nav-link rounded text-white d-flex align-items-center @(section == "plans" ? "bg-primary fw-bold rounded" : "")">
-                    <i class="bi bi-journal-text me-2 fs-3 fs-md-5"></i>
-                    <span class="d-none d-md-inline ms-2">Plany treningowe</span>
+                <a asp-controller="Profile" asp-action="Index" asp-route-section="packs"
+                    class="nav-link rounded text-white d-flex align-items-center @(section == "packs" ? "bg-primary fw-bold rounded" : "")">
+                    <i class="bi bi-box-seam me-2 fs-3 fs-md-5"></i>
+                    <span class="d-none d-md-inline ms-2 ">Pakiety</span>
                 </a>
             </li>
-
         </ul>
 
 
@@ -85,12 +85,12 @@
                     @await Html.PartialAsync("_PersonalTrainings")
                     break;
 
-                case "plans":
-                    @await Html.PartialAsync("_TrainingPlans")
+                case "reservarions":
+                    @await Html.PartialAsync("_Reservations")
                     break;
 
-                case "diets":
-                    @await Html.PartialAsync("_Diets")
+                case "packs":
+                    @await Html.PartialAsync("_Packs")
                     break;
 
                 case "password":

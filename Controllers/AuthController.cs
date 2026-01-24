@@ -97,7 +97,7 @@ namespace GymApp.Controllers
 
             if (result.Succeeded)
             {
-                TempData["Success"] = "Konto zostało pomyślnie utworzone. Teraz możesz się zalogowac.";
+                TempData["Success"] = "Konto zostało pomyślnie utworzone. Teraz możesz się zalogować.";
                 return RedirectToAction("Login");
             }
 
