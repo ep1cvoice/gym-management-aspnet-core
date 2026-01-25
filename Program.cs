@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using GymApp.Models;
 using GymApp.Models.Factories;
+using GymApp.Services;
+using GymApp.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +22,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
 builder.Services.AddScoped<IPassFactory, PassFactory>();
-
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 // -------------------- APP --------------------
 
@@ -45,5 +47,12 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbSeeder.Seed(context);
+}
+
 
 app.Run();

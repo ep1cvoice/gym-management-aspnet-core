@@ -6,6 +6,7 @@ using GymApp.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using GymApp.Models.Enums;
 using GymApp.Models.Factories;
+using GymApp.Services;
 
 
 namespace GymApp.Controllers
@@ -15,14 +16,18 @@ namespace GymApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProfileController(UserManager<ApplicationUser> userManager,
+        public ProfileController(
+            UserManager<ApplicationUser> userManager,
             AppDbContext context,
-            IPassFactory passFactory)
+            IPassFactory passFactory,
+            IBookingService bookingService)
         {
             _userManager = userManager;
             _context = context;
             _passFactory = passFactory;
+            _bookingService = bookingService;
         }
+
 
         public async Task<IActionResult> Index(
         string section = "account",
@@ -55,7 +60,25 @@ namespace GymApp.Controllers
                 City = address?.City
             };
 
+            if (section == "classes")
+            {
+                var classes = await _context.TrainingClasses
+                    .Include(c => c.Trainer)
+                    .ToListAsync();
+
+                ViewData["Classes"] = classes;
+            }
+
+            if (section == "reservarions")
+            {
+                var reservations = await _bookingService
+                    .GetUserBookingsAsync(user.Id);
+
+                ViewData["Reservations"] = reservations;
+            }
+
             return View(model);
+
         }
 
 
@@ -266,6 +289,21 @@ namespace GymApp.Controllers
 
             TempData["Success"] = "Adres został zapisany.";
             return RedirectToAction("Index", new { section = "account" });
+        }
+
+        private readonly IBookingService _bookingService;
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BookClass(int trainingClassId)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+                return RedirectToAction("Login", "Auth");
+
+            await _bookingService.BookClassAsync(trainingClassId, userId);
+
+            return RedirectToAction("Index", new { section = "classes" });
         }
 
 
