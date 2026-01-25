@@ -34,14 +34,12 @@
     }
 
 
-    @* ===== BRAK KARNETU ===== *@
     @if (activePass == null)
     {
         <h1 class="mb-4">Wybierz karnet</h1>
 
         <div class="row justify-content-center">
 
-            <!-- STUDENT -->
             <div class="col-12 col-md-6 col-lg-3 mb-4">
                 <div class="pricing-card bg-dark rounded-4 p-4 h-100 d-flex flex-column">
                     <h6 class="text-primary">Student</h6>
@@ -77,7 +75,6 @@
                 </div>
             </div>
 
-            <!-- BASIC -->
             <div class="col-12 col-md-6 col-lg-3 mb-4">
                 <div class="pricing-card featured rounded-4 p-4 h-100 d-flex flex-column">
                     <div class="badge-offer">Najpopularniejszy</div>
@@ -115,7 +112,6 @@
                 </div>
             </div>
 
-            <!-- PRO -->
             <div class="col-12 col-md-6 col-lg-3 mb-4">
                 <div class="pricing-card bg-dark rounded-4 p-4 h-100 d-flex flex-column">
                     <h6 class="text-primary">Pro</h6>
@@ -151,7 +147,6 @@
                 </div>
             </div>
 
-            <!-- ATHLETE -->
             <div class="col-12 col-md-6 col-lg-3 mb-4">
                 <div class="pricing-card bg-dark rounded-4 p-4 h-100 d-flex flex-column">
                     <h6 class="text-primary">Athlete</h6>
@@ -220,10 +215,9 @@
     }
     else
     {
-        @* ===== AKTYWNY KARNET ===== *@
         <h1 class="mb-4">Twój aktywny karnet</h1>
 
-        <div class="card bg-dark text-light p-4 rounded-4 col-md-6">
+        <div class="card bg-dark text-light p-4 rounded-4 col-md-6 border-success">
             <h4 class="text-primary">@activePass.Name</h4>
 
             <p class="mb-1">

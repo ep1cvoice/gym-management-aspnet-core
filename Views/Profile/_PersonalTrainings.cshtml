@@ -11,53 +11,58 @@
 @if (active != null)
 {
     <div class="card bg-dark text-light border-success">
-        <div class="card-body d-flex gap-4 align-items-center">
+        <div class="card-body">
 
-            <div class="flex-grow-1">
-                <h4 class="card-title text-success mb-3">
-                    Aktywna współpraca personalna
-                </h4>
+            <div class="row g-4 align-items-center">
 
-                <p><strong>Trener:</strong> @active.Trainer.FullName</p>
-                <p><strong>Telefon:</strong> +48 500 600 700</p>
-                <p>
-                    <strong>Ważna do:</strong>
-                    @active.EndDate.ToString("dd.MM.yyyy")
-                </p>
-
-                <p>
-                    <strong>Zakres:</strong>
-                    @(active.DietType == DietType.Standard
-                                    ? "Trening personalny"
-                                    : "Trening personalny + dieta")
-                </p>
-
-                <div class="d-flex gap-2 mt-4">
-                    <form asp-action="ExtendPersonalTraining" method="post">
-                        @Html.AntiForgeryToken()
-                        <button class="btn btn-success" onclick="this.disabled=true; this.form.submit();">
-                            Przedłuż o miesiąc
-                        </button>
-
-                    </form>
-
-                    <form asp-action="CancelPersonalTraining" method="post">
-                        @Html.AntiForgeryToken()
-                        <button class="btn btn-danger">
-                            Zrezygnuj
-                        </button>
-                    </form>
+                <div class="col-12 col-md-4 text-center order-1 order-md-2">
+                    <img src="@active.Trainer.ImageUrl" alt="Zdjęcie trenera" class="img-fluid rounded shadow mb-3 mb-md-0" />
                 </div>
-            </div>
 
-            <div style="width: 200px;">
-                <img src="@active.Trainer.ImageUrl" alt="Zdjęcie trenera" class="img-fluid rounded shadow" />
+                <div class="col-12 col-md-8 order-2 order-md-1">
+
+                    <h4 class="card-title text-success mb-3">
+                        Aktywna współpraca personalna
+                    </h4>
+
+                    <p><strong>Twój Trener:</strong> @active.Trainer.FullName</p>
+                    <p><strong>Telefon:</strong> +48 511 622 732</p>
+                    <p>
+                        <strong>Ważna do:</strong>
+                        @active.EndDate.ToString("dd.MM.yyyy")
+                    </p>
+
+                    <p>
+                        <strong>Zakres:</strong>
+                        @(active.DietType == DietType.Standard
+                                            ? "Trening personalny"
+                                            : "Trening personalny + dieta")
+                    </p>
+
+                    <div class="d-grid d-md-flex gap-2 mt-4">
+                        <form asp-action="ExtendPersonalTraining" method="post">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-success w-100" onclick="this.disabled=true; this.form.submit();">
+                                Przedłuż o miesiąc
+                            </button>
+                        </form>
+
+                        <form asp-action="CancelPersonalTraining" method="post">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-danger w-100">
+                                Zrezygnuj
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
     </div>
-
 }
+
 else
 {
 
