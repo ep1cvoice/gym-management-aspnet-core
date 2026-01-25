@@ -52,9 +52,18 @@
 
             <hr />
 
-            <p class="text-secondary fst-italic">
-                Brak danych adresowych
-            </p>
+            @if (!string.IsNullOrEmpty(Model.Street))
+            {
+                <p><strong>Ulica:</strong> @Model.Street</p>
+                <p><strong>Kod pocztowy:</strong> @Model.PostalCode</p>
+                <p><strong>Miasto:</strong> @Model.City</p>
+            }
+            else
+            {
+                <p class="text-secondary fst-italic">
+                    Brak danych adresowych
+                </p>
+            }
 
         </div>
     </div>
@@ -121,33 +130,34 @@
 {
     <h1 class="fw-bold mb-4">Edytuj adres</h1>
 
-    <form>
+    <form asp-action="SaveAddress" method="post">
+        @Html.AntiForgeryToken()
+
         <div class="card shadow-sm mb-4">
             <div class="card-body bg-dark text-light border border-dark rounded">
 
                 <div class="mb-3">
-                    <label class="form-label">Ulica</label>
-                    <input class="form-control" value="Toszecka 27A/8" />
+                    <label asp-for="Street" class="form-label">Ulica</label>
+                    <input asp-for="Street" class="form-control" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Kod pocztowy</label>
-                    <input class="form-control" value="44-102" />
+                    <label asp-for="PostalCode" class="form-label">Kod pocztowy</label>
+                    <input asp-for="PostalCode" class="form-control" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Miasto</label>
-                    <input class="form-control" value="Gliwice" />
+                    <label asp-for="City" class="form-label">Miasto</label>
+                    <input asp-for="City" class="form-control" />
                 </div>
 
                 <div class="d-flex justify-content-end gap-2">
-                    <a class="btn btn-outline-light" asp-controller="Profile" asp-action="Index"
-                        asp-route-section="account">
+                    <a class="btn btn-outline-light" asp-action="Index" asp-route-section="account">
                         Anuluj
                     </a>
 
-                    <button class="btn btn-primary" disabled>
-                        Zapisz (wkrótce)
+                    <button type="submit" class="btn btn-primary">
+                        Zapisz
                     </button>
                 </div>
 
@@ -155,3 +165,4 @@
         </div>
     </form>
 }
+

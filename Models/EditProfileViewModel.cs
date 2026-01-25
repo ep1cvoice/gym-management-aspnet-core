@@ -21,5 +21,14 @@ namespace GymApp.Models.ViewModels
 
         [MaxLength(50)]
         public string? DocumentNumber { get; set; }
+        [MaxLength(150)]
+        
+        public string? Street { get; set; }
+
+        [MaxLength(20)]
+        public string? PostalCode { get; set; }
+
+        [MaxLength(100)]
+        public string? City { get; set; }
     }
 }

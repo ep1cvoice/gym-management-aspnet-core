@@ -25,16 +25,22 @@ namespace GymApp.Controllers
         }
 
         public async Task<IActionResult> Index(
-            string section = "account",
-            string? editSection = null)
+        string section = "account",
+        string? editSection = null)
         {
             ViewData["Section"] = section;
             ViewBag.EditSection = editSection;
 
-            var user = await _userManager.GetUserAsync(User);
+            var userId = _userManager.GetUserId(User);
+
+            var user = await _userManager.Users
+                .Include(u => u.Addresses)
+                .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
                 return RedirectToAction("Login", "Auth");
+
+            var address = user.Addresses.FirstOrDefault();
 
             var model = new EditProfileViewModel
             {
@@ -42,11 +48,16 @@ namespace GymApp.Controllers
                 LastName = user.LastName,
                 Email = user.Email ?? "",
                 PhoneNumber = user.PhoneNumber,
-                DocumentNumber = user.DocumentNumber
+                DocumentNumber = user.DocumentNumber,
+
+                Street = address?.Street,
+                PostalCode = address?.PostalCode,
+                City = address?.City
             };
 
             return View(model);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -221,6 +232,41 @@ namespace GymApp.Controllers
             return RedirectToAction("Index", new { section = "passes" });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveAddress(EditProfileViewModel model)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var user = await _userManager.Users
+                .Include(u => u.Addresses)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                return RedirectToAction("Login", "Auth");
+
+            var address = user.Addresses.FirstOrDefault();
+
+            if (address == null)
+            {
+                address = new UserAddress
+                {
+                    UserId = user.Id
+                };
+
+                _context.UserAddresses.Add(address);
+                user.Addresses.Add(address);
+            }
+
+            address.Street = model.Street;
+            address.PostalCode = model.PostalCode;
+            address.City = model.City;
+
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Adres został zapisany.";
+            return RedirectToAction("Index", new { section = "account" });
+        }
 
 
     }
