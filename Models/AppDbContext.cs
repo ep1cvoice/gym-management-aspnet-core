@@ -14,4 +14,12 @@ public class AppDbContext
 
     public DbSet<UserPass> UserPasses => Set<UserPass>();
 
+    public DbSet<Trainer> Trainers => Set<Trainer>();
+
+    public DbSet<TrainingClass> TrainingClasses => Set<TrainingClass>();
+
+    public DbSet<Booking> Bookings => Set<Booking>();
+
+    public DbSet<Package> Packages => Set<Package>();
+
 }
