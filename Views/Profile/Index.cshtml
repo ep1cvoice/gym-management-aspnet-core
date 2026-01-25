@@ -59,13 +59,6 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a asp-controller="Profile" asp-action="Index" asp-route-section="packs"
-                    class="nav-link rounded text-white d-flex align-items-center @(section == "packs" ? "bg-primary fw-bold rounded" : "")">
-                    <i class="bi bi-box-seam me-2 fs-3 fs-md-5"></i>
-                    <span class="d-none d-md-inline ms-2 ">Pakiety</span>
-                </a>
-            </li>
         </ul>
 
 
@@ -87,10 +80,6 @@
 
                 case "reservarions":
                     @await Html.PartialAsync("_Reservations")
-                    break;
-
-                case "packs":
-                    @await Html.PartialAsync("_Packs")
                     break;
 
                 case "password":

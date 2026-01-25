@@ -11,5 +11,10 @@ namespace GymApp.Models
 
         [Required]
         public TrainerType TrainerType { get; set; }
+
+        public string ImageUrl { get; set; } = string.Empty;
+
     }
+
+    
 }

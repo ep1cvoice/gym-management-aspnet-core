@@ -25,12 +25,14 @@ namespace GymApp.Data
                     new Trainer
                     {
                         FullName = "Damian Lebowski",
-                        TrainerType = TrainerType.Personal
+                        TrainerType = TrainerType.Personal,
+                        ImageUrl = "https://images.unsplash.com/photo-1534368270820-9de3d8053204?q=80&w=1170&auto=format&fit=crop"
                     },
                     new Trainer
                     {
                         FullName = "Mateusz Zuch",
-                        TrainerType = TrainerType.Personal
+                        TrainerType = TrainerType.Personal,
+                        ImageUrl = "https://images.unsplash.com/photo-1579758629938-03607ccdbaba"
                     }
                 };
 

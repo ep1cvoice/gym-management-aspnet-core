@@ -1,1 +1,117 @@
+@using GymApp.Models
+@using GymApp.Models.Enums
+
 <h1 class="mb-4">Treningi personalne</h1>
+
+@{
+    var active = ViewData["ActivePersonalTraining"] as Package;
+    var trainers = ViewData["PersonalTrainers"] as List<Trainer> ?? new();
+}
+
+@if (active != null)
+{
+    <div class="card bg-dark text-light border-success">
+        <div class="card-body d-flex gap-4 align-items-center">
+
+            <div class="flex-grow-1">
+                <h4 class="card-title text-success mb-3">
+                    Aktywna współpraca personalna
+                </h4>
+
+                <p><strong>Trener:</strong> @active.Trainer.FullName</p>
+                <p><strong>Telefon:</strong> +48 500 600 700</p>
+                <p>
+                    <strong>Ważna do:</strong>
+                    @active.EndDate.ToString("dd.MM.yyyy")
+                </p>
+
+                <p>
+                    <strong>Zakres:</strong>
+                    @(active.DietType == DietType.Standard
+                                    ? "Trening personalny"
+                                    : "Trening personalny + dieta")
+                </p>
+
+                <div class="d-flex gap-2 mt-4">
+                    <form asp-action="ExtendPersonalTraining" method="post">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-success" onclick="this.disabled=true; this.form.submit();">
+                            Przedłuż o miesiąc
+                        </button>
+
+                    </form>
+
+                    <form asp-action="CancelPersonalTraining" method="post">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-danger">
+                            Zrezygnuj
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div style="width: 200px;">
+                <img src="@active.Trainer.ImageUrl" alt="Zdjęcie trenera" class="img-fluid rounded shadow" />
+            </div>
+
+        </div>
+    </div>
+
+}
+else
+{
+
+    @foreach (var trainer in trainers)
+    {
+        <div class="card bg-dark text-light mb-4">
+            <div class="card-body">
+                <h4 class="card-title">@trainer.FullName</h4>
+
+                <form asp-action="StartPersonalTraining" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="trainerId" value="@trainer.Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Forma współpracy</label>
+                        <select class="form-select training-type" name="trainingType">
+                            <option value="TrainingOnly">Trening personalny</option>
+                            <option value="TrainingWithDiet">Trening + dieta</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3 diet-section d-none">
+                        <label class="form-label">Dieta</label>
+                        <select class="form-select" name="dietType">
+                            <option value="Standard">Standard</option>
+                            <option value="Reduction">Redukcja</option>
+                            <option value="Mass">Masa</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary">
+                        Rozpocznij współpracę
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+
+    <script>
+        document.querySelectorAll('.training-type').forEach(select => {
+            const form = select.closest('form');
+            const dietSection = form.querySelector('.diet-section');
+
+            function toggleDiet() {
+                if (select.value === 'TrainingWithDiet') {
+                    dietSection.classList.remove('d-none');
+                } else {
+                    dietSection.classList.add('d-none');
+                }
+            }
+
+            select.addEventListener('change', toggleDiet);
+            toggleDiet();
+        });
+    </script>
+}

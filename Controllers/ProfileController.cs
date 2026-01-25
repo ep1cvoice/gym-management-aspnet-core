@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using GymApp.Models.Enums;
 using GymApp.Models.Factories;
 using GymApp.Services;
+using GymApp.Models.Factories.PersonalTrainings;
 
 
 namespace GymApp.Controllers
@@ -76,6 +77,28 @@ namespace GymApp.Controllers
 
                 ViewData["Reservations"] = reservations;
             }
+
+            if (section == "personal")
+            {
+                var activePackage = await _context.Packages
+                    .Include(p => p.Trainer)
+                    .FirstOrDefaultAsync(p =>
+                        p.UserId == user.Id &&
+                        p.IsActive);
+
+                ViewData["ActivePersonalTraining"] = activePackage;
+
+                if (activePackage == null)
+                {
+                    var trainers = await _context.Trainers
+                        .Where(t => t.TrainerType == TrainerType.Personal)
+                        .ToListAsync();
+
+                    ViewData["PersonalTrainers"] = trainers;
+                }
+            }
+
+
 
             return View(model);
 
@@ -179,14 +202,12 @@ namespace GymApp.Controllers
             if (user == null)
                 return RedirectToAction("Login", "Auth");
 
-            // BLOKADA – tylko jeden karnet
             if (user.ActivePass != null)
             {
                 TempData["Error"] = "Masz już aktywny karnet. Usuń go, aby kupić nowy.";
                 return RedirectToAction("Index", new { section = "passes" });
             }
 
-            // SIMPLE FACTORY
             var pass = _passFactory.Create(passType, user.Id);
 
             user.ActivePass = pass;
@@ -318,6 +339,92 @@ namespace GymApp.Controllers
 
             return RedirectToAction("Index", new { section = "reservarions" });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StartPersonalTraining(
+        int trainerId,
+        PersonalTrainingType trainingType,
+        DietType? dietType)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+                return RedirectToAction("Login", "Auth");
+
+            var hasActive = await _context.Packages
+                .AnyAsync(p => p.UserId == userId && p.IsActive);
+
+            if (hasActive)
+            {
+                TempData["Error"] = "Masz już aktywną współpracę personalną.";
+                return RedirectToAction("Index", new { section = "personal" });
+            }
+
+            IPersonalTrainingFactory factory =
+                trainingType == PersonalTrainingType.TrainingWithDiet
+                    ? new TrainingWithDietFactory()
+                    : new TrainingOnlyFactory();
+
+            var package = factory.Create(trainerId, userId, dietType);
+
+            _context.Packages.Add(package);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Rozpoczęto współpracę z trenerem personalnym. Oczekuj na kontakt telefoniczny w godziny robocze.";
+
+            return RedirectToAction("Index", new { section = "personal" });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelPersonalTraining()
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+                return RedirectToAction("Login", "Auth");
+
+            var activePackage = await _context.Packages
+                .FirstOrDefaultAsync(p =>
+                    p.UserId == userId &&
+                    p.IsActive);
+
+            if (activePackage != null)
+            {
+                activePackage.IsActive = false;
+                activePackage.EndDate = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+            }
+
+
+            TempData["Success"] = "Zrezygnowano ze współpracy z trenerem personalnym.";
+
+            return RedirectToAction("Index", new { section = "personal" });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ExtendPersonalTraining()
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+                return RedirectToAction("Login", "Auth");
+
+            var activePackage = await _context.Packages
+                .FirstOrDefaultAsync(p =>
+                    p.UserId == userId &&
+                    p.IsActive);
+
+            if (activePackage != null)
+            {
+                activePackage.EndDate = activePackage.EndDate.AddDays(30);
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Współpraca została przedłużona o kolejny miesiąc.";
+            }
+
+            return RedirectToAction("Index", new { section = "personal" });
+        }
+
 
     }
 
