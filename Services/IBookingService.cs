@@ -7,5 +7,6 @@ namespace GymApp.Services
         Task<bool> BookClassAsync(int trainingClassId, string userId);
         Task<List<Booking>> GetUserBookingsAsync(string userId);
         Task CancelBookingAsync(int bookingId, string userId);
+
     }
 }

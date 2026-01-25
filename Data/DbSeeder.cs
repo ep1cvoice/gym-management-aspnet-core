@@ -39,36 +39,78 @@ namespace GymApp.Data
             }
 
             // ===== CLASSES =====
+            // ===== CLASSES =====
             if (!context.TrainingClasses.Any())
             {
-                var groupTrainer = context.Trainers
-                    .First(t => t.TrainerType == TrainerType.Group);
+                var groupTrainers = context.Trainers
+                    .Where(t => t.TrainerType == TrainerType.Group)
+                    .ToList();
 
-                var classes = new List<TrainingClass>
+                var wiktoria = groupTrainers.First(t => t.FullName.Contains("Wiktoria"));
+                var beata = groupTrainers.First(t => t.FullName.Contains("Beata"));
+
+                var classes = new List<TrainingClass>();
+
+                // ===== WIKTORIA – YOGA =====
+                var yogaDates = new[]
                 {
-                    new TrainingClass
+                    new DateTime(2026, 2, 3, 18, 0, 0),
+                    new DateTime(2026, 2, 5, 9, 0, 0),
+                    new DateTime(2026, 2, 7, 10, 0, 0),
+                    new DateTime(2026, 2, 10, 18, 0, 0),
+                    new DateTime(2026, 2, 12, 9, 0, 0),
+                    new DateTime(2026, 2, 14, 10, 0, 0),
+                    new DateTime(2026, 2, 17, 18, 0, 0),
+                    new DateTime(2026, 2, 19, 9, 0, 0),
+                    new DateTime(2026, 2, 21, 10, 0, 0),
+                    new DateTime(2026, 2, 24, 18, 0, 0)
+                };
+
+                foreach (var date in yogaDates)
+                {
+                    classes.Add(new TrainingClass
                     {
                         Name = "Yoga Flow",
                         Duration = TimeSpan.FromMinutes(60),
-                        StartTime = DateTime.Today.AddHours(18),
+                        StartTime = date,
                         MaxSlots = 12,
                         TakenSlots = 0,
-                        TrainerId = groupTrainer.Id
-                    },
-                    new TrainingClass
+                        TrainerId = wiktoria.Id
+                    });
+                }
+
+                // ===== BEATA – CROSSFIT =====
+                var crossfitDates = new[]
+                {
+                    new DateTime(2026, 2, 4, 19, 0, 0),
+                    new DateTime(2026, 2, 6, 17, 0, 0),
+                    new DateTime(2026, 2, 8, 11, 0, 0),
+                    new DateTime(2026, 2, 11, 19, 0, 0),
+                    new DateTime(2026, 2, 13, 17, 0, 0),
+                    new DateTime(2026, 2, 15, 11, 0, 0),
+                    new DateTime(2026, 2, 18, 19, 0, 0),
+                    new DateTime(2026, 2, 20, 17, 0, 0),
+                    new DateTime(2026, 2, 22, 11, 0, 0),
+                    new DateTime(2026, 2, 26, 19, 0, 0)
+                };
+
+                foreach (var date in crossfitDates)
+                {
+                    classes.Add(new TrainingClass
                     {
                         Name = "Cross Training",
                         Duration = TimeSpan.FromMinutes(45),
-                        StartTime = DateTime.Today.AddDays(1).AddHours(19),
-                        MaxSlots = 10,
+                        StartTime = date,
+                        MaxSlots = 12,
                         TakenSlots = 0,
-                        TrainerId = groupTrainer.Id
-                    }
-                };
+                        TrainerId = beata.Id
+                    });
+                }
 
                 context.TrainingClasses.AddRange(classes);
                 context.SaveChanges();
             }
+
         }
     }
 }

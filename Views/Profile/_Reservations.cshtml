@@ -1,1 +1,55 @@
+@using GymApp.Models
+@using GymApp.Models.Enums
+
+@{
+    var reservations = ViewData["Reservations"] as List<Booking> ?? new();
+}
+
 <h1 class="mb-4">Moje rezerwacje</h1>
+
+@if (!reservations.Any())
+{
+    <div class="alert alert-secondary">
+        Nie masz aktualnie żadnych rezerwacji.
+    </div>
+}
+else
+{
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>Zajęcia</th>
+                <th>Trener</th>
+                <th>Data</th>
+                <th>Czas</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var r in reservations
+            .Where(r => r.Status == BookingStatus.Active)
+            .OrderBy(r => r.TrainingClass.StartTime))
+        {
+            <tr>
+                <td>@r.TrainingClass.Name</td>
+                <td>@r.TrainingClass.Trainer.FullName</td>
+                <td>@r.TrainingClass.StartTime.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@r.TrainingClass.Duration</td>
+                <td>
+                    <span class="badge bg-success">Aktywna</span>
+                </td>
+                <td>
+                    <form asp-action="CancelReservation" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="bookingId" value="@r.Id" />
+                        <button class="btn btn-danger btn-sm">
+                            Wypisz się
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

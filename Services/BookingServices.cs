@@ -25,7 +25,7 @@ namespace GymApp.Services
                 return false;
 
             var alreadyBooked = await _context.Bookings
-                .AnyAsync(b => b.TrainingClassId == trainingClassId 
+                .AnyAsync(b => b.TrainingClassId == trainingClassId
                             && b.UserId == userId
                             && b.Status == BookingStatus.Active);
 
@@ -60,7 +60,10 @@ namespace GymApp.Services
         {
             var booking = await _context.Bookings
                 .Include(b => b.TrainingClass)
-                .FirstOrDefaultAsync(b => b.Id == bookingId && b.UserId == userId);
+                .FirstOrDefaultAsync(b =>
+                    b.Id == bookingId &&
+                    b.UserId == userId &&
+                    b.Status == BookingStatus.Active);
 
             if (booking == null)
                 return;
@@ -70,5 +73,6 @@ namespace GymApp.Services
 
             await _context.SaveChangesAsync();
         }
+
     }
 }

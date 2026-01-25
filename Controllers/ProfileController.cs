@@ -306,6 +306,18 @@ namespace GymApp.Controllers
             return RedirectToAction("Index", new { section = "classes" });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelReservation(int bookingId)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId == null)
+                return RedirectToAction("Login", "Auth");
+
+            await _bookingService.CancelBookingAsync(bookingId, userId);
+
+            return RedirectToAction("Index", new { section = "reservarions" });
+        }
 
     }
 

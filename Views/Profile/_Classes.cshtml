@@ -1,47 +1,58 @@
 @using GymApp.Models
+@using GymApp.Models.Enums
+
 @{
     var classes = ViewData["Classes"] as List<TrainingClass> ?? new();
+
+    var grouped = classes
+        .GroupBy(c => c.Trainer.FullName)
+        .OrderBy(g => g.Key);
 }
 
 <h1 class="mb-4">Zajęcia grupowe</h1>
 
-<table class="table table-dark table-striped">
-    <thead>
-        <tr>
-            <th>Nazwa</th>
-            <th>Trener</th>
-            <th>Start</th>
-            <th>Czas</th>
-            <th>Miejsca</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in classes)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Trainer.FullName</td>
-            <td>@item.StartTime.ToString("dd.MM HH:mm")</td>
-            <td>@item.Duration</td>
-            <td>@item.TakenSlots / @item.MaxSlots</td>
-            <td>
-                @if (item.TakenSlots < item.MaxSlots)
-                {
-                    <form asp-action="BookClass" method="post">
-                        @Html.AntiForgeryToken()
-                        <input type="hidden" name="trainingClassId" value="@item.Id" />
-                        <button class="btn btn-primary btn-sm">
-                            Zapisz się
-                        </button>
-                    </form>
-                }
-                else
-                {
-                    <span class="text-danger">Brak miejsc</span>
-                }
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+@foreach (var group in grouped)
+{
+    <h3 class="mt-5 mb-3 text-primary">
+        @group.Key
+    </h3>
+
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Start</th>
+                <th>Czas</th>
+                <th>Miejsca</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in group.OrderBy(c => c.StartTime))
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.StartTime.ToString("dd.MM HH:mm")</td>
+                <td>@item.Duration</td>
+                <td>@item.TakenSlots / @item.MaxSlots</td>
+                <td>
+                    @if (item.TakenSlots < item.MaxSlots)
+                    {
+                        <form asp-action="BookClass" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="trainingClassId" value="@item.Id" />
+                            <button class="btn btn-primary btn-sm">
+                                Zapisz się
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-danger">Brak miejsc</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
