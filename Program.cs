@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using GymApp.Models;
 using GymApp.Models.Factories;
 using GymApp.Services;
+using GymApp.Services.Mediators;
 using GymApp.Data;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
 builder.Services.AddScoped<IPassFactory, PassFactory>();
+builder.Services.AddScoped<IBookingMediator, BookingMediator>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 
 // -------------------- APP --------------------

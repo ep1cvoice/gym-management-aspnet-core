@@ -1,14 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using GymApp.Data;
 using GymApp.Models;
 using GymApp.Models.Enums;
 
-namespace GymApp.Services
+namespace GymApp.Services.Mediators
 {
-    public class BookingService : IBookingService
+    public class BookingMediator : IBookingMediator
     {
         private readonly AppDbContext _context;
 
-        public BookingService(AppDbContext context)
+        public BookingMediator(AppDbContext context)
         {
             _context = context;
         }
@@ -24,10 +25,10 @@ namespace GymApp.Services
             if (trainingClass.TakenSlots >= trainingClass.MaxSlots)
                 return false;
 
-            var alreadyBooked = await _context.Bookings
-                .AnyAsync(b => b.TrainingClassId == trainingClassId
-                            && b.UserId == userId
-                            && b.Status == BookingStatus.Active);
+            var alreadyBooked = await _context.Bookings.AnyAsync(b =>
+                b.TrainingClassId == trainingClassId &&
+                b.UserId == userId &&
+                b.Status == BookingStatus.Active);
 
             if (alreadyBooked)
                 return false;
@@ -47,15 +48,6 @@ namespace GymApp.Services
             return true;
         }
 
-        public async Task<List<Booking>> GetUserBookingsAsync(string userId)
-        {
-            return await _context.Bookings
-                .Include(b => b.TrainingClass)
-                .ThenInclude(tc => tc.Trainer)
-                .Where(b => b.UserId == userId)
-                .ToListAsync();
-        }
-
         public async Task CancelBookingAsync(int bookingId, string userId)
         {
             var booking = await _context.Bookings
@@ -73,6 +65,5 @@ namespace GymApp.Services
 
             await _context.SaveChangesAsync();
         }
-
     }
 }
