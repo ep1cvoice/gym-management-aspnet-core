@@ -21,14 +21,18 @@ namespace GymApp.Controllers
 
         public IActionResult StartTraining()
         {
-            if (!User.Identity.IsAuthenticated)
+            if (User.Identity?.IsAuthenticated != true)
             {
-                return RedirectToAction("Login", "Auth",
-                    new { returnUrl = Url.Action("Index", "Profile") });
+                return RedirectToAction(
+                    "Login",
+                    "Auth",
+                    new { returnUrl = Url.Action("Index", "Profile") }
+                );
             }
 
             return RedirectToAction("Index", "Profile");
         }
+
         public IActionResult ChooseTrainer()
         {
             var targetUrl = Url.Action(
@@ -37,7 +41,7 @@ namespace GymApp.Controllers
                 new { section = "personal" }
             );
 
-            if (!User.Identity.IsAuthenticated)
+            if (User.Identity?.IsAuthenticated != true)
             {
                 return RedirectToAction(
                     "Login",
@@ -48,6 +52,7 @@ namespace GymApp.Controllers
 
             return Redirect(targetUrl!);
         }
+
         public IActionResult ChooseMembership()
         {
             var targetUrl = Url.Action(
@@ -56,7 +61,7 @@ namespace GymApp.Controllers
                 new { section = "passes" }
             );
 
-            if (!User.Identity.IsAuthenticated)
+            if (User.Identity?.IsAuthenticated != true)
             {
                 return RedirectToAction(
                     "Login",
@@ -67,6 +72,7 @@ namespace GymApp.Controllers
 
             return Redirect(targetUrl!);
         }
+
 
 
 
