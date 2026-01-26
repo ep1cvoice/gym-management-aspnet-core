@@ -93,3 +93,8 @@ section {
 .trainer-card:hover .trainer-overlay {
 	background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.35));
 }
+
+.input-group .form-control:focus {
+    box-shadow: none;
+    outline: none;
+}

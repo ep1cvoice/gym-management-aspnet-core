@@ -5,26 +5,101 @@
     var classes = ViewData["Classes"] as List<TrainingClass> ?? new();
 
     var grouped = classes
-        .GroupBy(c => c.Trainer.FullName)
-        .OrderBy(g => g.Key);
+    .GroupBy(c => c.Trainer.FullName)
+    .OrderBy(g => g.Key);
 }
 
 <h1 class="mb-4">Zajęcia grupowe</h1>
 
+<div class="col-12 mb-4">
+
+    <div class="card bg-dark text-light border-secondary">
+        <div class="card-header p-0">
+
+            <button class="btn btn-dark w-100 text-start d-flex align-items-center gap-2" type="button"
+                data-bs-toggle="collapse" data-bs-target="#infoZajecia" aria-expanded="false"
+                aria-controls="infoZajecia">
+
+                <i class="bi bi-info-circle fs-5"></i>
+                <span class="fw-semibold">Info – przeczytaj przed rezerwacją</span>
+            </button>
+
+        </div>
+
+        <div id="infoZajecia" class="collapse">
+            <div class="card-body">
+
+                <ul class="list-unstyled mb-0">
+
+                    <li class="d-flex gap-2 mb-3">
+                        <i class="bi bi-calendar-check text-info"></i>
+                        <span>
+                            Przeglądaj listę dostępnych zajęć w przyszłym miesiącu.
+                        </span>
+                    </li>
+
+                    <li class="d-flex gap-2 mb-3">
+                        <i class="bi bi-ticket-perforated text-info"></i>
+                        <span>
+                            Możesz zapisać się na każde zajęcia, jeśli posiadasz
+                            <strong>dowolny aktywny karnet</strong>.
+                        </span>
+                    </li>
+
+                    <li class="d-flex gap-2 mb-3">
+                        <i class="bi bi-people-fill text-info"></i>
+                        <span>
+                            Uczestnictwo w zajęciach grupowych jest
+                            <strong>darmowe</strong>, o ile są wolne miejsca.
+                        </span>
+                    </li>
+
+                    <li class="d-flex gap-2 mb-3">
+                        <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                        <span>
+                            Jeśli zarezerwujesz miejsce, musisz pojawić się na zajęciach.
+                            Nieobecność bez anulowania może skutkować trafieniem na
+                            <strong>czarną listę prowadzącego</strong>.
+                        </span>
+                    </li>
+
+                    <li class="d-flex gap-2">
+                        <i class="bi bi-clock-history text-warning"></i>
+                        <span>
+                            Rezygnacji z zajęć dokonaj na stronie
+                            <strong>„Moje rezerwacje”</strong>
+                            najpóźniej <strong>dzień wcześniej</strong>.
+                        </span>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
 <form method="get" class="mb-4">
     <input type="hidden" name="section" value="classes" />
 
-    <div class="input-group">
-        <input type="text"
-               name="filter"
-               class="form-control"
-               placeholder="np. trainer:Wiktoria AND name:Yoga"
-               value="@ViewData["Filter"]" />
+    <div class="input-group mb-3">
+        <input type="text" name="filter" class="form-control" placeholder="Wyszukaj zajęcia lub trenera..."
+            value="@ViewData["Filter"]" />
 
-        <button class="btn btn-outline-primary">
+        <button class="btn btn-primary">
             Filtruj
         </button>
+
+
     </div>
+    <p class="text-light mb-2">
+        Wpisz nazwę trenera lub zajęć, np.
+        <strong>Wiktoria</strong>,
+        <strong>Yoga</strong> albo
+        <strong>Beata Cross</strong>.
+    </p>
 </form>
 
 
@@ -45,31 +120,31 @@
             </tr>
         </thead>
         <tbody>
-        @foreach (var item in group.OrderBy(c => c.StartTime))
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.StartTime.ToString("dd.MM HH:mm")</td>
-                <td>@item.Duration</td>
-                <td>@item.TakenSlots / @item.MaxSlots</td>
-                <td>
-                    @if (item.TakenSlots < item.MaxSlots)
-                    {
-                        <form asp-action="BookClass" method="post">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="trainingClassId" value="@item.Id" />
-                            <button class="btn btn-primary btn-sm">
-                                Zapisz się
-                            </button>
-                        </form>
-                    }
-                    else
-                    {
-                        <span class="text-danger">Brak miejsc</span>
-                    }
-                </td>
-            </tr>
-        }
+            @foreach (var item in group.OrderBy(c => c.StartTime))
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.StartTime.ToString("dd.MM HH:mm")</td>
+                    <td>@item.Duration</td>
+                    <td>@item.TakenSlots / @item.MaxSlots</td>
+                    <td>
+                        @if (item.TakenSlots < item.MaxSlots)
+                        {
+                            <form asp-action="BookClass" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="trainingClassId" value="@item.Id" />
+                                <button class="btn btn-primary btn-sm">
+                                    Zapisz się
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Brak miejsc</span>
+                        }
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }
