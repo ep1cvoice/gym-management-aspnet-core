@@ -329,10 +329,20 @@ namespace GymApp.Controllers
             if (userId == null)
                 return RedirectToAction("Login", "Auth");
 
-            await _bookingService.BookClassAsync(trainingClassId, userId);
+            var success = await _bookingService.BookClassAsync(trainingClassId, userId);
+
+            if (success)
+            {
+                TempData["Success"] = "Poprawnie zapisano na zajęcia. Sprawdź stronę ze swoimi rezerwacjami.";
+            }
+            else
+            {
+                TempData["Info"] = "Nie udało się zapisać na zajęcia (brak miejsc lub już jesteś zapisany).";
+            }
 
             return RedirectToAction("Index", new { section = "classes" });
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -344,8 +354,11 @@ namespace GymApp.Controllers
 
             await _bookingService.CancelBookingAsync(bookingId, userId);
 
+            TempData["Success"] = "Zostałeś pomyślnie wypisany z zajęć.";
+
             return RedirectToAction("Index", new { section = "reservarions" });
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

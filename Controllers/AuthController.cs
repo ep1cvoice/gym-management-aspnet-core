@@ -52,6 +52,25 @@ namespace GymApp.Controllers
 
             return Redirect(targetUrl!);
         }
+        public IActionResult ChooseClasses()
+        {
+            var targetUrl = Url.Action(
+                "Index",
+                "Profile",
+                new { section = "classes" }
+            );
+
+            if (User.Identity?.IsAuthenticated != true)
+            {
+                return RedirectToAction(
+                    "Login",
+                    "Auth",
+                    new { returnUrl = targetUrl }
+                );
+            }
+
+            return Redirect(targetUrl!);
+        }
 
         public IActionResult ChooseMembership()
         {
