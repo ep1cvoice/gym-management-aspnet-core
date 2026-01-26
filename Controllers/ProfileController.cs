@@ -8,7 +8,7 @@ using GymApp.Models.Enums;
 using GymApp.Models.Factories;
 using GymApp.Services;
 using GymApp.Models.Factories.PersonalTrainings;
-
+using GymApp.Services.Interpreters;
 
 namespace GymApp.Controllers
 {
@@ -67,7 +67,14 @@ namespace GymApp.Controllers
                     .Include(c => c.Trainer)
                     .ToListAsync();
 
+                var filter = HttpContext.Request.Query["filter"].ToString();
+
+                var interpreter = new ClassesFilterInterpreter();
+                classes = interpreter.Apply(classes, filter);
+
                 ViewData["Classes"] = classes;
+                ViewData["Filter"] = filter;
+
             }
 
             if (section == "reservarions")

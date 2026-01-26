@@ -11,6 +11,23 @@
 
 <h1 class="mb-4">Zajęcia grupowe</h1>
 
+<form method="get" class="mb-4">
+    <input type="hidden" name="section" value="classes" />
+
+    <div class="input-group">
+        <input type="text"
+               name="filter"
+               class="form-control"
+               placeholder="np. trainer:Wiktoria AND name:Yoga"
+               value="@ViewData["Filter"]" />
+
+        <button class="btn btn-outline-primary">
+            Filtruj
+        </button>
+    </div>
+</form>
+
+
 @foreach (var group in grouped)
 {
     <h3 class="mt-5 mb-3 text-primary">
