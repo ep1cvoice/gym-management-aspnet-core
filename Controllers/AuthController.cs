@@ -93,9 +93,6 @@ namespace GymApp.Controllers
         }
 
 
-
-
-
         // ---------------- REGISTER ----------------
 
         [HttpGet]
