@@ -2,6 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using GymApp.Data;
 using GymApp.Models;
 using GymApp.Services.Mediators;
+using GymApp.Services.Notifications;
+using GymApp.Models.Notifications;
+
+
 
 namespace GymApp.Services
 {

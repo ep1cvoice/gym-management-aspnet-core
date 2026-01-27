@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using GymApp.Data;
 using GymApp.Models;
 using GymApp.Models.Enums;
+using GymApp.Services.Notifications;
+using GymApp.Models.Notifications;
+
 
 namespace GymApp.Services.Mediators
 {
@@ -45,6 +48,16 @@ namespace GymApp.Services.Mediators
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
 
+            var notificationManager = NotificationManager.Instance;
+            var emailNotification = new EmailNotification();
+
+            notificationManager.Send(
+                emailNotification,
+                userId,
+                "Zostałeś pomyślnie zapisany na zajęcia."
+            );
+
+
             return true;
         }
 
@@ -64,6 +77,15 @@ namespace GymApp.Services.Mediators
             booking.TrainingClass.TakenSlots--;
 
             await _context.SaveChangesAsync();
+
+            // ===== SINGLETON – NOTYFIKACJA =====
+            var notificationManager = NotificationManager.Instance;
+            var emailNotification = new EmailNotification();
+
+            notificationManager.Send(
+                emailNotification,
+                userId,
+                "Twoja rezerwacja zajęć została anulowana.");
         }
     }
 }

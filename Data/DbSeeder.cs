@@ -7,7 +7,6 @@ namespace GymApp.Data
     {
         public static void Seed(AppDbContext context)
         {
-            // ===== TRAINERS =====
             if (!context.Trainers.Any())
             {
                 var trainers = new List<Trainer>
@@ -40,8 +39,6 @@ namespace GymApp.Data
                 context.SaveChanges();
             }
 
-            // ===== CLASSES =====
-            // ===== CLASSES =====
             if (!context.TrainingClasses.Any())
             {
                 var groupTrainers = context.Trainers
@@ -53,7 +50,7 @@ namespace GymApp.Data
 
                 var classes = new List<TrainingClass>();
 
-                // ===== WIKTORIA – YOGA =====
+                // ===== WIKTORIA YOGA =====
                 var yogaDates = new[]
                 {
                     new DateTime(2026, 2, 3, 18, 0, 0),

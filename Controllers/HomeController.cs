@@ -1,7 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using GymApp.Models;
-using gym_manager_dotnet.Models.Notifications;
+using GymApp.Models.Notifications;
+
 
 
 namespace GymApp.Controllers;

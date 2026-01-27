@@ -64,8 +64,9 @@ _FormaFit Gym is a learning and portfolio project simulating a landing page and 
 
 ## Why this project?
 
-**I built this project to:**
+**This project is developed as part of the Advanced Programming course at a higher education institution.**
 
+**Also, building this projects makes sense for me in a way to:**
 - learn ASP.NET Core full-stack development
 - understand clean architecture and patterns
 - build a real-world app for portfolio

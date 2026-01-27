@@ -1,4 +1,4 @@
-namespace gym_manager_dotnet.Models.Notifications
+namespace GymApp.Models.Notifications
 {
     public interface INotification
     {
